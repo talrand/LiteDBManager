@@ -104,7 +104,6 @@ namespace LiteDBManager
 
                 // Default query text
                 txtQuery.Text = "SELECT $ FROM " + e.Node.Text;
-                _currentTable = e.Node.Text;
             }
             catch (Exception ex)
             {
@@ -126,6 +125,7 @@ namespace LiteDBManager
                 {
                     if (txtQuery.Text.Substring(0, 6).Equals("SELECT", StringComparison.InvariantCultureIgnoreCase))
                     {
+                        GetCurrentTableNameFromSelectQuery();
                         PopulateGridFromSelectQuery();
                         return;
                     }
@@ -140,10 +140,43 @@ namespace LiteDBManager
             }
         }
 
+        private void GetCurrentTableNameFromSelectQuery()
+        {
+            string[] words = null;
+            bool fromKeyWordFound = false;
+
+            try
+            {
+                words = txtQuery.Text.Split(new string[] { " " }, StringSplitOptions.None);
+
+                foreach(string word in words)
+                {
+                    // FROM keyword found - store current word as table name
+                    if (fromKeyWordFound == true)
+                    {
+                        _currentTable = word.Trim();
+                        break;
+                    }
+
+                    // If current word is the FROM keyword, next word is the table name
+                    if (word.Trim().Equals("FROM", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        fromKeyWordFound = true;
+                        continue;
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
         private void PopulateGridFromSelectQuery()
         {
             try
             {
+
                 dgvResults.DataSource = ExecuteQuery(txtQuery.Text);
 
                 // Stop users editing internal _id column
