@@ -96,5 +96,10 @@ namespace LiteDBManager.Classes
 
             return value.ToString();
         }
+
+        public static string FormatIdFieldForWhereClause(string id)
+        {
+            return $"{{\"$oid\": \"{id}\"}}";
+        }
     }
 }

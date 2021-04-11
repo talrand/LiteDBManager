@@ -231,6 +231,7 @@ namespace LiteDBManager
             DataGridViewCell cell = null;
             string columnName = "";
             string id = null;
+            var updateCommand = new UpdateCommandBuilder();
 
             try
             {
@@ -245,8 +246,12 @@ namespace LiteDBManager
                     return;
                 }
 
-                // Perform update - note: _id is an ObjectId field and must be formatted as a Bson value
-                Database.Execute($"UPDATE {_currentTable} SET {columnName} = {FormatFieldValue(cell.Value)} WHERE _id = {{\"$oid\": \"{id}\"}}");
+                // Perform update 
+                updateCommand.SetTableName(_currentTable);
+                updateCommand.AddField(columnName, cell.Value);
+                updateCommand.SetWhereClause($"_id={FormatIdFieldForWhereClause(id)}");
+
+                Database.Execute(updateCommand.ToString());
             }
             catch (Exception ex)
             {
