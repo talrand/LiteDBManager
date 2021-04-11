@@ -291,5 +291,71 @@ namespace LiteDBManager
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void dgvResults_MouseClick(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                if (e.Button == MouseButtons.Right)
+                {
+                    mnuGrid.Show(Cursor.Position);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void mnuGrid_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            try
+            {
+                // Disable menu items if no rows in grid
+                if (dgvResults.Rows.Count == 0)
+                {
+                    mnuDeleteRow.Enabled = false;
+                    return;
+                }
+
+                mnuDeleteRow.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void mnuDeleteRow_Click(object sender, EventArgs e)
+        {
+            string id = "";
+
+            try
+            {
+                if(dgvResults.CurrentRow == null)
+                {
+                    return;
+                }
+
+                id = dgvResults.CurrentRow.Cells["_id"].Value.ToString();
+
+                // Don't attempt to delete 'New Row'
+                if (id == "")
+                {
+                    return;
+                }
+
+                if(MessageBox.Show("Are you sure you want to delete this row?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    // Delete row and repopulate grid
+                    Database.Execute($"DELETE {_currentTable} WHERE _id = {FormatIdFieldForWhereClause(id)}");
+                    PopulateGridFromSelectQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }
