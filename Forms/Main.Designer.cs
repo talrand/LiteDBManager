@@ -76,15 +76,15 @@ namespace LiteDBManager
             // mnuNewDatabase
             // 
             this.mnuNewDatabase.Name = "mnuNewDatabase";
-            this.mnuNewDatabase.Size = new System.Drawing.Size(128, 26);
-            this.mnuNewDatabase.Text = "New";
+            this.mnuNewDatabase.Size = new System.Drawing.Size(236, 26);
+            this.mnuNewDatabase.Text = "Create New Database";
             this.mnuNewDatabase.Click += new System.EventHandler(this.mnuNewDatabase_Click);
             // 
             // mnuOpenDatabase
             // 
             this.mnuOpenDatabase.Name = "mnuOpenDatabase";
-            this.mnuOpenDatabase.Size = new System.Drawing.Size(128, 26);
-            this.mnuOpenDatabase.Text = "Open";
+            this.mnuOpenDatabase.Size = new System.Drawing.Size(236, 26);
+            this.mnuOpenDatabase.Text = "Connect To Database";
             this.mnuOpenDatabase.Click += new System.EventHandler(this.mnuOpenDatabase_Click);
             // 
             // mnuExecuteQuery
@@ -114,7 +114,7 @@ namespace LiteDBManager
             this.txtQuery.Margin = new System.Windows.Forms.Padding(4);
             this.txtQuery.Multiline = true;
             this.txtQuery.Name = "txtQuery";
-            this.txtQuery.Size = new System.Drawing.Size(1068, 144);
+            this.txtQuery.Size = new System.Drawing.Size(1067, 144);
             this.txtQuery.TabIndex = 2;
             // 
             // splitContainer
@@ -188,7 +188,7 @@ namespace LiteDBManager
             this.grpQuery.Margin = new System.Windows.Forms.Padding(4);
             this.grpQuery.Name = "grpQuery";
             this.grpQuery.Padding = new System.Windows.Forms.Padding(4);
-            this.grpQuery.Size = new System.Drawing.Size(1085, 176);
+            this.grpQuery.Size = new System.Drawing.Size(1084, 176);
             this.grpQuery.TabIndex = 4;
             this.grpQuery.TabStop = false;
             this.grpQuery.Text = "Query";
