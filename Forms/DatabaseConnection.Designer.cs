@@ -29,6 +29,7 @@ namespace LiteDBManager.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDatabaseConnection));
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnConnect = new System.Windows.Forms.Button();
             this.lblFileName = new System.Windows.Forms.Label();
@@ -142,6 +143,7 @@ namespace LiteDBManager.Forms
             this.Controls.Add(this.btnConnect);
             this.Controls.Add(this.btnCancel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmDatabaseConnection";

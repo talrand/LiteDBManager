@@ -19,28 +19,6 @@ namespace LiteDBManager
             InitializeComponent();
         }
 
-        private void mnuNewDatabase_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                using (var saveFileDialog = new SaveFileDialog())
-                {
-                    saveFileDialog.Filter = DatabaseFilter;
-                    saveFileDialog.ShowDialog();
-
-                    if (saveFileDialog.FileName != "")
-                    {
-                        OpenDatabase(saveFileDialog.FileName, "", ConnectionMethod.Shared);
-                        PopulateTableNames();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
         private void mnuOpenDatabase_Click(object sender, EventArgs e)
         {           
             try
