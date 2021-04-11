@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using LiteDBManager.Classes;
+using LiteDBManager.Forms;
 using static LiteDBManager.Classes.DatabaseWrapper;
 
 namespace LiteDBManager
 {
     public partial class frmMain : Form
-    {
-        private const string DatabaseFilter = "Database files|*.db";
+    {        
         private const string DatabaseTreeNodeTag = "DB";
         private const string TableTreeNodeTag = "Table";
 
@@ -30,7 +30,7 @@ namespace LiteDBManager
 
                     if (saveFileDialog.FileName != "")
                     {
-                        OpenDatabase(saveFileDialog.FileName);
+                        OpenDatabase(saveFileDialog.FileName, "", ConnectionMethod.Shared);
                         PopulateTableNames();
                     }
                 }
@@ -42,17 +42,15 @@ namespace LiteDBManager
         }
 
         private void mnuOpenDatabase_Click(object sender, EventArgs e)
-        {
+        {           
             try
             {
-                using (var openFileDialog = new OpenFileDialog())
+                using (var databaseConnection = new frmDatabaseConnection())
                 {
-                    openFileDialog.Filter = DatabaseFilter;
-                    openFileDialog.ShowDialog();
+                    databaseConnection.ShowDialog();
 
-                    if (openFileDialog.FileName != "")
+                    if (databaseConnection.Connected == true)
                     {
-                        OpenDatabase(openFileDialog.FileName);
                         PopulateTableNames();
                     }
                 }

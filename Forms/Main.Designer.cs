@@ -31,9 +31,8 @@ namespace LiteDBManager
         {
             this.components = new System.ComponentModel.Container();
             this.mnuMain = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuNewDatabase = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuOpenDatabase = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuNewDatabase = new System.Windows.Forms.ToolStripMenuItem();
             this.treeTables = new System.Windows.Forms.TreeView();
             this.txtQuery = new System.Windows.Forms.TextBox();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
@@ -60,7 +59,8 @@ namespace LiteDBManager
             // 
             this.mnuMain.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.mnuMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.mnuOpenDatabase,
+            this.mnuNewDatabase});
             this.mnuMain.Location = new System.Drawing.Point(0, 0);
             this.mnuMain.Name = "mnuMain";
             this.mnuMain.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
@@ -68,28 +68,19 @@ namespace LiteDBManager
             this.mnuMain.TabIndex = 0;
             this.mnuMain.Text = "menuStrip1";
             // 
-            // fileToolStripMenuItem
+            // mnuOpenDatabase
             // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuNewDatabase,
-            this.mnuOpenDatabase});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem.Text = "File";
+            this.mnuOpenDatabase.Name = "mnuOpenDatabase";
+            this.mnuOpenDatabase.Size = new System.Drawing.Size(130, 20);
+            this.mnuOpenDatabase.Text = "Connect To Database";
+            this.mnuOpenDatabase.Click += new System.EventHandler(this.mnuOpenDatabase_Click);
             // 
             // mnuNewDatabase
             // 
             this.mnuNewDatabase.Name = "mnuNewDatabase";
-            this.mnuNewDatabase.Size = new System.Drawing.Size(186, 22);
+            this.mnuNewDatabase.Size = new System.Drawing.Size(131, 20);
             this.mnuNewDatabase.Text = "Create New Database";
             this.mnuNewDatabase.Click += new System.EventHandler(this.mnuNewDatabase_Click);
-            // 
-            // mnuOpenDatabase
-            // 
-            this.mnuOpenDatabase.Name = "mnuOpenDatabase";
-            this.mnuOpenDatabase.Size = new System.Drawing.Size(186, 22);
-            this.mnuOpenDatabase.Text = "Connect To Database";
-            this.mnuOpenDatabase.Click += new System.EventHandler(this.mnuOpenDatabase_Click);
             // 
             // treeTables
             // 
@@ -241,7 +232,6 @@ namespace LiteDBManager
         #endregion
 
         private System.Windows.Forms.MenuStrip mnuMain;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mnuNewDatabase;
         private System.Windows.Forms.ToolStripMenuItem mnuOpenDatabase;
         private System.Windows.Forms.TreeView treeTables;

@@ -4,20 +4,40 @@ using LiteDB;
 using System.IO;
 using System.Data;
 using static LiteDBManager.Classes.BsonTypeMapper;
+using System.Text;
 
 namespace LiteDBManager.Classes
 {
     public static class DatabaseWrapper
     {
+        public struct ConnectionMethod
+        {
+            public const string Shared = "shared";
+            public const string Exclusive = "exclusive";
+        }
+
+        public const string DatabaseFilter = "Database files|*.db";
+
         private static LiteDatabase _database = null;
         private static string _databaseName = "";
 
         public static LiteDatabase Database { get { return _database; } }
         public static string DatabaseName { get { return _databaseName; } }
 
-        public static void OpenDatabase(string fileName)
+        public static void OpenDatabase(string fileName, string password, string connectionMethod)
         {
-            _database = new LiteDatabase("Filename=" + fileName + ";connection=shared;");
+            var stringBuilder = new StringBuilder();
+
+            // Build connection string
+            stringBuilder.Append($"filename={fileName};");
+            stringBuilder.Append($"connection={connectionMethod};");
+
+            if (password != "")
+            {
+                stringBuilder.Append($"password={password};");
+            }
+
+            _database = new LiteDatabase(stringBuilder.ToString());
             _databaseName = Path.GetFileName(fileName);
         }
 
