@@ -47,10 +47,15 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="Talrand.Core">
+      <HintPath>.\Talrand.Core.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\CommandBuilder.cs" />
     <Compile Include="Classes\DatabaseEngine.cs" />
     <Compile Include="Classes\BsonTypeMapper.cs" />
+    <Compile Include="Classes\InsertCommandBuilder.cs" />
     <Compile Include="Forms\Main.cs">
       <SubType>Form</SubType>
     </Compile>

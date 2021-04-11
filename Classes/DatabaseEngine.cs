@@ -83,5 +83,18 @@ namespace LiteDBManager.Classes
 
             return dataTable;
         }
+
+        public static string FormatFieldValue(object value)
+        {
+            Type valueType = value.GetType();
+
+            // For strings and dates wrap value in quotes
+            if (valueType.Equals(typeof(string)) || valueType.Equals(typeof(DateTime)))
+            {
+                return $"'{value}'";
+            }
+
+            return value.ToString();
+        }
     }
 }

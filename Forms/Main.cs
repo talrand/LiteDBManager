@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using LiteDBManager.Classes;
 using static LiteDBManager.Classes.DatabaseEngine;
 
 namespace LiteDBManager
@@ -157,15 +158,12 @@ namespace LiteDBManager
             }
         }
 
-        private void dgvResults_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            DataGridViewCell cell = null;
-
             try
             {
-                // Store current value of cell in tag for comparison during CellEndEdit event
-                cell = dgvResults.Rows[e.RowIndex].Cells[e.ColumnIndex];
-                cell.Tag = cell.Value;
+                // Dispose of LiteDatabase object
+                CloseDatabase();
             }
             catch(Exception ex)
             {
@@ -173,7 +171,62 @@ namespace LiteDBManager
             }
         }
 
-        private void dgvResults_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        private void dgvResults_RowLeave(object sender, DataGridViewCellEventArgs e)
+        {
+            var insertCommand = new InsertCommandBuilder();
+
+            try
+            {
+                // Ignore existing rows
+                if (dgvResults.Rows[e.RowIndex].Cells["_id"].Value.ToString() != "")
+                {
+                    return;
+                }
+
+                // Build insert command
+                insertCommand.SetTableName(_currentTable);
+
+                foreach (DataGridViewCell cell in dgvResults.Rows[e.RowIndex].Cells)
+                {
+                    // Ignore _id column as this will be automatically populated
+                    if (dgvResults.Columns[cell.ColumnIndex].Name == "_id")
+                    {
+                        continue;
+                    }
+
+                    insertCommand.AddField(dgvResults.Columns[cell.ColumnIndex].Name, cell.Value);
+                }
+
+                // Run insert command
+                Database.Execute(insertCommand.ToString());
+
+                // Re-run query command - needs to use BeginInvoke call to avoid reentrant errors
+                BeginInvoke(new MethodInvoker(PopulateGridFromSelectQuery));
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void dgvResults_CellLeave(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                // Finish editing cell before leaving.
+                // This resolves issues with null values being inserted after editing a value in a new row and switching rows
+                if (dgvResults.Rows[e.RowIndex].Cells[e.ColumnIndex].IsInEditMode == true)
+                {
+                    dgvResults.EndEdit();
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void dgvResults_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             DataGridViewCell cell = null;
             string columnName = "";
@@ -186,29 +239,16 @@ namespace LiteDBManager
                 columnName = dgvResults.Columns[e.ColumnIndex].Name;
                 id = dgvResults.Rows[e.RowIndex].Cells["_id"].Value.ToString();
 
-                // Don't bother updating the cell if value hasn't changed
-                if (cell.Value == cell.Tag)
+                // No id means we're adding a new row
+                if (id == "")
                 {
                     return;
                 }
 
                 // Perform update - note: _id is an ObjectId field and must be formatted as a Bson value
-                Database.Execute($"UPDATE {_currentTable} SET {columnName} = {cell.Value} WHERE _id = {{\"$oid\": \"{id}\"}}");
+                Database.Execute($"UPDATE {_currentTable} SET {columnName} = {FormatFieldValue(cell.Value)} WHERE _id = {{\"$oid\": \"{id}\"}}");
             }
             catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            try
-            {
-                // Dispose of LiteDatabase object
-                CloseDatabase();
-            }
-            catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
