@@ -7,7 +7,7 @@ using static LiteDBManager.Classes.BsonTypeMapper;
 
 namespace LiteDBManager.Classes
 {
-    public static class DatabaseEngine
+    public static class DatabaseWrapper
     {
         private static LiteDatabase _database = null;
         private static string _databaseName = "";

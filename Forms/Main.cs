@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using LiteDBManager.Classes;
-using static LiteDBManager.Classes.DatabaseEngine;
+using static LiteDBManager.Classes.DatabaseWrapper;
 
 namespace LiteDBManager
 {

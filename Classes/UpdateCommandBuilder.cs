@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static Talrand.Core.Extensions;
-using static LiteDBManager.Classes.DatabaseEngine;
+using static LiteDBManager.Classes.DatabaseWrapper;
 
 namespace LiteDBManager.Classes
 {

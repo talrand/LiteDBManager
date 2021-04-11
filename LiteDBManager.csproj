@@ -53,7 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\CommandBuilder.cs" />
-    <Compile Include="Classes\DatabaseEngine.cs" />
+    <Compile Include="Classes\DatabaseWrapper.cs" />
     <Compile Include="Classes\BsonTypeMapper.cs" />
     <Compile Include="Classes\InsertCommandBuilder.cs" />
     <Compile Include="Classes\UpdateCommandBuilder.cs" />
