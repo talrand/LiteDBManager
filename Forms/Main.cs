@@ -111,7 +111,7 @@ namespace LiteDBManager
             }
         }
 
-        private void mnuExecuteQuery_Click(object sender, EventArgs e)
+        private void btnExecuteQuery_Click(object sender, EventArgs e)
         {
             try
             {
