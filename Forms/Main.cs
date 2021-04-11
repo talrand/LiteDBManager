@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Windows.Forms;
 using LiteDBManager.Classes;
 using LiteDBManager.Forms;
@@ -17,6 +18,42 @@ namespace LiteDBManager
         public frmMain()
         {
             InitializeComponent();
+
+            try
+            {
+                // Set double buffered field to improve visual performance of grid
+                typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, dgvResults, new object[] { true });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void frmMain_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                // Get filenames of recently opened databases
+                RecentFiles.Read();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            try
+            {
+                // Dispose of LiteDatabase object
+                CloseDatabase();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void mnuOpenDatabase_Click(object sender, EventArgs e)
@@ -159,19 +196,6 @@ namespace LiteDBManager
                 {
                     dgvResults.Columns["_id"].ReadOnly = true;
                 }
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            try
-            {
-                // Dispose of LiteDatabase object
-                CloseDatabase();
             }
             catch(Exception ex)
             {
@@ -326,19 +350,6 @@ namespace LiteDBManager
                     Database.Execute($"DELETE {_currentTable} WHERE _id = {FormatIdFieldForWhereClause(id)}");
                     PopulateGridFromSelectQuery();
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void frmMain_Load(object sender, EventArgs e)
-        {
-            try
-            {
-                // Get filenames of recently opened databases
-                RecentFiles.Read();
             }
             catch (Exception ex)
             {
