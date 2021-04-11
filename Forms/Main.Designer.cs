@@ -127,6 +127,9 @@ namespace LiteDBManager
             // 
             // grpDatabaseExplorer
             // 
+            this.grpDatabaseExplorer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.grpDatabaseExplorer.Controls.Add(this.treeTables);
             this.grpDatabaseExplorer.Location = new System.Drawing.Point(3, 0);
             this.grpDatabaseExplorer.Name = "grpDatabaseExplorer";
@@ -137,6 +140,9 @@ namespace LiteDBManager
             // 
             // grpResults
             // 
+            this.grpResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.grpResults.Controls.Add(this.dgvResults);
             this.grpResults.Location = new System.Drawing.Point(2, 149);
             this.grpResults.Name = "grpResults";
@@ -212,6 +218,7 @@ namespace LiteDBManager
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LiteDB Manager";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
+            this.Load += new System.EventHandler(this.frmMain_Load);
             this.mnuMain.ResumeLayout(false);
             this.mnuMain.PerformLayout();
             this.splitContainer.Panel1.ResumeLayout(false);

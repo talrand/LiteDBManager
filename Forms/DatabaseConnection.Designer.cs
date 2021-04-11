@@ -31,13 +31,13 @@ namespace LiteDBManager.Forms
         {
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnConnect = new System.Windows.Forms.Button();
-            this.txtFileName = new System.Windows.Forms.TextBox();
             this.lblFileName = new System.Windows.Forms.Label();
             this.btnSelectFile = new System.Windows.Forms.Button();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.lblPassword = new System.Windows.Forms.Label();
             this.lblConnectionMethod = new System.Windows.Forms.Label();
             this.cboMethod = new System.Windows.Forms.ComboBox();
+            this.cboFileName = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // btnCancel
@@ -49,6 +49,7 @@ namespace LiteDBManager.Forms
             this.btnCancel.TabIndex = 8;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnConnect
             // 
@@ -60,15 +61,6 @@ namespace LiteDBManager.Forms
             this.btnConnect.Text = "Connect";
             this.btnConnect.UseVisualStyleBackColor = true;
             this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
-            // 
-            // txtFileName
-            // 
-            this.txtFileName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFileName.Location = new System.Drawing.Point(77, 12);
-            this.txtFileName.Name = "txtFileName";
-            this.txtFileName.Size = new System.Drawing.Size(333, 20);
-            this.txtFileName.TabIndex = 1;
             // 
             // lblFileName
             // 
@@ -127,18 +119,26 @@ namespace LiteDBManager.Forms
             this.cboMethod.Size = new System.Drawing.Size(126, 21);
             this.cboMethod.TabIndex = 6;
             // 
+            // cboFileName
+            // 
+            this.cboFileName.FormattingEnabled = true;
+            this.cboFileName.Location = new System.Drawing.Point(77, 11);
+            this.cboFileName.Name = "cboFileName";
+            this.cboFileName.Size = new System.Drawing.Size(333, 21);
+            this.cboFileName.TabIndex = 1;
+            // 
             // frmDatabaseConnection
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(451, 125);
+            this.Controls.Add(this.cboFileName);
             this.Controls.Add(this.cboMethod);
             this.Controls.Add(this.lblConnectionMethod);
             this.Controls.Add(this.lblPassword);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.btnSelectFile);
             this.Controls.Add(this.lblFileName);
-            this.Controls.Add(this.txtFileName);
             this.Controls.Add(this.btnConnect);
             this.Controls.Add(this.btnCancel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -157,12 +157,12 @@ namespace LiteDBManager.Forms
 
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnConnect;
-        private System.Windows.Forms.TextBox txtFileName;
         private System.Windows.Forms.Label lblFileName;
         private System.Windows.Forms.Button btnSelectFile;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.Label lblConnectionMethod;
         private System.Windows.Forms.ComboBox cboMethod;
+        private System.Windows.Forms.ComboBox cboFileName;
     }
 }

@@ -56,6 +56,7 @@
     <Compile Include="Classes\DatabaseWrapper.cs" />
     <Compile Include="Classes\BsonTypeMapper.cs" />
     <Compile Include="Classes\InsertCommandBuilder.cs" />
+    <Compile Include="Classes\RecentFiles.cs" />
     <Compile Include="Classes\UpdateCommandBuilder.cs" />
     <Compile Include="Forms\DatabaseConnection.cs">
       <SubType>Form</SubType>

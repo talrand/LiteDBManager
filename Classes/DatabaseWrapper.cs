@@ -26,9 +26,20 @@ namespace LiteDBManager.Classes
 
         public static void OpenDatabase(string fileName, string password, string connectionMethod)
         {
+            // Connect to database - this will create it if it doesn't exist
+            _database = new LiteDatabase(BuildConnectionString(fileName, password, connectionMethod));
+            
+            // Store database name for display in database explorer
+            _databaseName = Path.GetFileName(fileName);
+
+            // Store database file in recent files log
+            RecentFiles.Write(fileName);
+        }
+
+        private static string BuildConnectionString(string fileName, string password, string connectionMethod)
+        {
             var stringBuilder = new StringBuilder();
 
-            // Build connection string
             stringBuilder.Append($"filename={fileName};");
             stringBuilder.Append($"connection={connectionMethod};");
 
@@ -37,8 +48,7 @@ namespace LiteDBManager.Classes
                 stringBuilder.Append($"password={password};");
             }
 
-            _database = new LiteDatabase(stringBuilder.ToString());
-            _databaseName = Path.GetFileName(fileName);
+            return stringBuilder.ToString();
         }
 
         public static void CloseDatabase()

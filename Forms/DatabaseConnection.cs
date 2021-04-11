@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using static LiteDBManager.Classes.DatabaseWrapper;
+using LiteDBManager.Classes;
 
 namespace LiteDBManager.Forms
 {
@@ -18,10 +19,44 @@ namespace LiteDBManager.Forms
         {
             try
             {
-                // Populate connection methods
+                // Populate drop downs
+                PopulateConnectionMethods();
+                PopulateRecentFileNames();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void PopulateConnectionMethods()
+        {
+            try
+            {
                 cboMethod.Items.Add(ConnectionMethod.Shared);
                 cboMethod.Items.Add(ConnectionMethod.Exclusive);
                 cboMethod.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void PopulateRecentFileNames()
+        {
+            try
+            {
+                foreach(string file in RecentFiles.Files)
+                {
+                    cboFileName.Items.Add(file);
+                }
+
+                // Select first item
+                if(cboFileName.Items.Count > 0)
+                {
+                    cboFileName.SelectedIndex = 0;
+                }
             }
             catch (Exception ex)
             {
@@ -33,11 +68,12 @@ namespace LiteDBManager.Forms
         {
             try
             {
+                // Prompt user to select a .db file
                 using (var openFileDialog = new OpenFileDialog())
                 {
                     openFileDialog.Filter = DatabaseFilter;
                     openFileDialog.ShowDialog();
-                    txtFileName.Text = openFileDialog.FileName;
+                    cboFileName.Text = openFileDialog.FileName;
                 }
             }
             catch (Exception ex)
@@ -50,8 +86,20 @@ namespace LiteDBManager.Forms
         {
             try
             {
-                OpenDatabase(txtFileName.Text, txtPassword.Text, cboMethod.SelectedItem.ToString());
+                OpenDatabase(cboFileName.Text, txtPassword.Text, cboMethod.SelectedItem.ToString());
                 _connected = true;
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            try
+            {
                 this.Close();
             }
             catch (Exception ex)

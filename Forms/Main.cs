@@ -54,7 +54,6 @@ namespace LiteDBManager
                         PopulateTableNames();
                     }
                 }
-
             }
             catch (Exception ex)
             {
@@ -349,6 +348,19 @@ namespace LiteDBManager
                     Database.Execute($"DELETE {_currentTable} WHERE _id = {FormatIdFieldForWhereClause(id)}");
                     PopulateGridFromSelectQuery();
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void frmMain_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                // Get filenames of recently opened databases
+                RecentFiles.Read();
             }
             catch (Exception ex)
             {
