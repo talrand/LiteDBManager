@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using LiteDBManager.Classes;
 using LiteDBManager.Forms;
 using static LiteDBManager.Classes.DatabaseWrapper;
+using System.Diagnostics;
 
 namespace LiteDBManager
 {
@@ -144,7 +145,12 @@ namespace LiteDBManager
                 }
 
                 // Execute non-query command
+                Stopwatch stopwatch = new Stopwatch();
+                stopwatch.Start();
                 Database.Execute(txtQuery.Text);
+                stopwatch.Stop();
+
+                MessageBox.Show($"Operation completed in {stopwatch.ElapsedMilliseconds} ms");
             }
             catch(Exception ex)
             {
