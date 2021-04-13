@@ -215,6 +215,12 @@ namespace LiteDBManager
                     return;
                 }
 
+                // Don't insert blank rows
+                if(IsGridRowBlank(dgvResults.Rows[e.RowIndex]) == true)
+                {
+                    return;
+                }
+
                 // Build insert command
                 insertCommand.SetTableName(_currentTable);
 
@@ -239,6 +245,21 @@ namespace LiteDBManager
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private bool IsGridRowBlank(DataGridViewRow row)
+        {
+            foreach (DataGridViewCell cell in row.Cells)
+            {
+                // As soon as a cell contains a value return false
+                if (String.IsNullOrEmpty(cell.Value.ToString()) == false)
+                {
+                    return false;
+                }
+            }
+
+            // All cells are blank
+            return true;
         }
 
         private void dgvResults_CellLeave(object sender, DataGridViewCellEventArgs e)
