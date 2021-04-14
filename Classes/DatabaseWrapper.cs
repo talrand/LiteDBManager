@@ -20,9 +20,11 @@ namespace LiteDBManager.Classes
 
         private static LiteDatabase _database = null;
         private static string _databaseName = "";
+        private static bool _isDatabaseReadOnly = false;
 
         public static LiteDatabase Database { get { return _database; } }
         public static string DatabaseName { get { return _databaseName; } }
+        public static bool IsDatabaseReadOnly { get { return _isDatabaseReadOnly; } }
 
         public static void OpenDatabase(string fileName, string password, string connectionMethod)
         {
@@ -39,6 +41,7 @@ namespace LiteDBManager.Classes
         private static string BuildConnectionString(string fileName, string password, string connectionMethod)
         {
             var stringBuilder = new StringBuilder();
+            FileInfo fileInfo = null;
 
             stringBuilder.Append($"filename={fileName};");
             stringBuilder.Append($"connection={connectionMethod};");
@@ -46,6 +49,15 @@ namespace LiteDBManager.Classes
             if (password != "")
             {
                 stringBuilder.Append($"password={password};");
+            }
+
+            // Get database file info
+            fileInfo = new FileInfo(fileName);
+            _isDatabaseReadOnly = fileInfo.IsReadOnly;
+
+            if(_isDatabaseReadOnly)
+            {
+                stringBuilder.Append("readonly=true;");
             }
 
             return stringBuilder.ToString();

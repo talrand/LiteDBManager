@@ -101,6 +101,7 @@ namespace LiteDBManager
         private void PopulateTableNames()
         {
             List<string> tableNames = null;
+            TreeNode databaseNode = new TreeNode();
 
             try
             {
@@ -108,7 +109,15 @@ namespace LiteDBManager
                 treeTables.Nodes.Clear();
 
                 // Add database node
-                treeTables.Nodes.Add(new TreeNode() { Text = DatabaseName, Tag = DatabaseTreeNodeTag });
+                databaseNode.Text = DatabaseName;
+
+                if (IsDatabaseReadOnly)
+                {
+                    databaseNode.Text += " [Read Only]";
+                }
+                databaseNode.Tag = DatabaseTreeNodeTag;
+
+                treeTables.Nodes.Add(databaseNode);
 
                 // Get names of all user defined tables
                 tableNames = GetNonSystemTableNames();
@@ -229,8 +238,14 @@ namespace LiteDBManager
         {
             try
             {
-
                 dgvResults.DataSource = ExecuteQuery(txtQuery.Text);
+
+                // Database in readonly mode
+                if (IsDatabaseReadOnly)
+                {
+                    dgvResults.ReadOnly = true;
+                    return;
+                }
 
                 // Stop users editing internal _id column
                 if (dgvResults.Columns.Contains("_id"))
