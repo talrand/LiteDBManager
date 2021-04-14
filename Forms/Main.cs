@@ -236,6 +236,11 @@ namespace LiteDBManager
                 if (dgvResults.Columns.Contains("_id"))
                 {
                     dgvResults.Columns["_id"].ReadOnly = true;
+                    dgvResults.ReadOnly = false;
+                }
+                else
+                {
+                    dgvResults.ReadOnly = true;
                 }
             }
             catch(Exception ex)
@@ -250,6 +255,12 @@ namespace LiteDBManager
 
             try
             {
+                // Grid is readonly
+                if (dgvResults.ReadOnly)
+                {
+                    return;
+                }
+
                 // Ignore existing rows
                 if (dgvResults.Rows[e.RowIndex].Cells["_id"].Value.ToString() != "")
                 {
@@ -379,7 +390,7 @@ namespace LiteDBManager
                     return;
                 }
 
-                mnuDeleteRow.Enabled = true;
+                mnuDeleteRow.Enabled = !dgvResults.ReadOnly;
             }
             catch (Exception ex)
             {

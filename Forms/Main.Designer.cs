@@ -33,6 +33,7 @@ namespace LiteDBManager
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.mnuMain = new System.Windows.Forms.MenuStrip();
             this.mnuOpenDatabase = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuDisconnect = new System.Windows.Forms.ToolStripMenuItem();
             this.treeTables = new System.Windows.Forms.TreeView();
             this.txtQuery = new System.Windows.Forms.TextBox();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
@@ -43,7 +44,6 @@ namespace LiteDBManager
             this.btnExecuteQuery = new System.Windows.Forms.Button();
             this.mnuGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.mnuDeleteRow = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuDisconnect = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
@@ -64,27 +64,34 @@ namespace LiteDBManager
             this.mnuDisconnect});
             this.mnuMain.Location = new System.Drawing.Point(0, 0);
             this.mnuMain.Name = "mnuMain";
-            this.mnuMain.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.mnuMain.Size = new System.Drawing.Size(1320, 28);
+            this.mnuMain.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
+            this.mnuMain.Size = new System.Drawing.Size(990, 24);
             this.mnuMain.TabIndex = 0;
             this.mnuMain.Text = "menuStrip1";
             // 
             // mnuOpenDatabase
             // 
             this.mnuOpenDatabase.Name = "mnuOpenDatabase";
-            this.mnuOpenDatabase.Size = new System.Drawing.Size(77, 24);
+            this.mnuOpenDatabase.Size = new System.Drawing.Size(64, 20);
             this.mnuOpenDatabase.Text = "Connect";
             this.mnuOpenDatabase.Click += new System.EventHandler(this.mnuOpenDatabase_Click);
+            // 
+            // mnuDisconnect
+            // 
+            this.mnuDisconnect.Enabled = false;
+            this.mnuDisconnect.Name = "mnuDisconnect";
+            this.mnuDisconnect.Size = new System.Drawing.Size(78, 20);
+            this.mnuDisconnect.Text = "Disconnect";
+            this.mnuDisconnect.Click += new System.EventHandler(this.mnuDisconnect_Click);
             // 
             // treeTables
             // 
             this.treeTables.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.treeTables.Location = new System.Drawing.Point(5, 23);
-            this.treeTables.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.treeTables.Location = new System.Drawing.Point(4, 19);
             this.treeTables.Name = "treeTables";
-            this.treeTables.Size = new System.Drawing.Size(203, 639);
+            this.treeTables.Size = new System.Drawing.Size(208, 519);
             this.treeTables.TabIndex = 0;
             this.treeTables.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeTables_NodeMouseDoubleClick);
             // 
@@ -93,12 +100,11 @@ namespace LiteDBManager
             this.txtQuery.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtQuery.Location = new System.Drawing.Point(8, 23);
-            this.txtQuery.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtQuery.Location = new System.Drawing.Point(6, 19);
             this.txtQuery.Multiline = true;
             this.txtQuery.Name = "txtQuery";
             this.txtQuery.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtQuery.Size = new System.Drawing.Size(1066, 107);
+            this.txtQuery.Size = new System.Drawing.Size(745, 88);
             this.txtQuery.TabIndex = 0;
             // 
             // splitContainer
@@ -106,8 +112,7 @@ namespace LiteDBManager
             this.splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.splitContainer.IsSplitterFixed = true;
-            this.splitContainer.Location = new System.Drawing.Point(0, 28);
-            this.splitContainer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.splitContainer.Location = new System.Drawing.Point(0, 24);
             this.splitContainer.Name = "splitContainer";
             // 
             // splitContainer.Panel1
@@ -118,9 +123,8 @@ namespace LiteDBManager
             // 
             this.splitContainer.Panel2.Controls.Add(this.grpResults);
             this.splitContainer.Panel2.Controls.Add(this.grpQuery);
-            this.splitContainer.Size = new System.Drawing.Size(1320, 670);
+            this.splitContainer.Size = new System.Drawing.Size(990, 543);
             this.splitContainer.SplitterDistance = 221;
-            this.splitContainer.SplitterWidth = 5;
             this.splitContainer.TabIndex = 3;
             // 
             // grpDatabaseExplorer
@@ -129,11 +133,9 @@ namespace LiteDBManager
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpDatabaseExplorer.Controls.Add(this.treeTables);
-            this.grpDatabaseExplorer.Location = new System.Drawing.Point(4, 0);
-            this.grpDatabaseExplorer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpDatabaseExplorer.Location = new System.Drawing.Point(3, 0);
             this.grpDatabaseExplorer.Name = "grpDatabaseExplorer";
-            this.grpDatabaseExplorer.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.grpDatabaseExplorer.Size = new System.Drawing.Size(217, 670);
+            this.grpDatabaseExplorer.Size = new System.Drawing.Size(218, 543);
             this.grpDatabaseExplorer.TabIndex = 0;
             this.grpDatabaseExplorer.TabStop = false;
             this.grpDatabaseExplorer.Text = "Database Explorer";
@@ -144,11 +146,9 @@ namespace LiteDBManager
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpResults.Controls.Add(this.dgvResults);
-            this.grpResults.Location = new System.Drawing.Point(3, 183);
-            this.grpResults.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpResults.Location = new System.Drawing.Point(2, 149);
             this.grpResults.Name = "grpResults";
-            this.grpResults.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.grpResults.Size = new System.Drawing.Size(1087, 487);
+            this.grpResults.Size = new System.Drawing.Size(759, 395);
             this.grpResults.TabIndex = 1;
             this.grpResults.TabStop = false;
             this.grpResults.Text = "Results";
@@ -159,11 +159,10 @@ namespace LiteDBManager
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvResults.Location = new System.Drawing.Point(8, 23);
-            this.dgvResults.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvResults.Location = new System.Drawing.Point(6, 19);
             this.dgvResults.Name = "dgvResults";
             this.dgvResults.RowHeadersWidth = 51;
-            this.dgvResults.Size = new System.Drawing.Size(1071, 456);
+            this.dgvResults.Size = new System.Drawing.Size(747, 369);
             this.dgvResults.TabIndex = 0;
             this.dgvResults.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvResults_CellLeave);
             this.dgvResults.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvResults_CellValueChanged);
@@ -176,11 +175,9 @@ namespace LiteDBManager
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpQuery.Controls.Add(this.btnExecuteQuery);
             this.grpQuery.Controls.Add(this.txtQuery);
-            this.grpQuery.Location = new System.Drawing.Point(3, 0);
-            this.grpQuery.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpQuery.Location = new System.Drawing.Point(2, 0);
             this.grpQuery.Name = "grpQuery";
-            this.grpQuery.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.grpQuery.Size = new System.Drawing.Size(1083, 176);
+            this.grpQuery.Size = new System.Drawing.Size(757, 143);
             this.grpQuery.TabIndex = 0;
             this.grpQuery.TabStop = false;
             this.grpQuery.Text = "Query";
@@ -188,10 +185,9 @@ namespace LiteDBManager
             // btnExecuteQuery
             // 
             this.btnExecuteQuery.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExecuteQuery.Location = new System.Drawing.Point(975, 139);
-            this.btnExecuteQuery.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnExecuteQuery.Location = new System.Drawing.Point(675, 113);
             this.btnExecuteQuery.Name = "btnExecuteQuery";
-            this.btnExecuteQuery.Size = new System.Drawing.Size(100, 28);
+            this.btnExecuteQuery.Size = new System.Drawing.Size(75, 23);
             this.btnExecuteQuery.TabIndex = 1;
             this.btnExecuteQuery.Text = "Run";
             this.btnExecuteQuery.UseVisualStyleBackColor = true;
@@ -203,34 +199,25 @@ namespace LiteDBManager
             this.mnuGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuDeleteRow});
             this.mnuGrid.Name = "mnuGrid";
-            this.mnuGrid.Size = new System.Drawing.Size(156, 28);
+            this.mnuGrid.Size = new System.Drawing.Size(134, 26);
             this.mnuGrid.Opening += new System.ComponentModel.CancelEventHandler(this.mnuGrid_Opening);
             // 
             // mnuDeleteRow
             // 
             this.mnuDeleteRow.Name = "mnuDeleteRow";
-            this.mnuDeleteRow.Size = new System.Drawing.Size(155, 24);
+            this.mnuDeleteRow.Size = new System.Drawing.Size(133, 22);
             this.mnuDeleteRow.Text = "Delete Row";
             this.mnuDeleteRow.Click += new System.EventHandler(this.mnuDeleteRow_Click);
             // 
-            // mnuDisconnect
-            // 
-            this.mnuDisconnect.Enabled = false;
-            this.mnuDisconnect.Name = "mnuDisconnect";
-            this.mnuDisconnect.Size = new System.Drawing.Size(96, 24);
-            this.mnuDisconnect.Text = "Disconnect";
-            this.mnuDisconnect.Click += new System.EventHandler(this.mnuDisconnect_Click);
-            // 
             // frmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1320, 698);
+            this.ClientSize = new System.Drawing.Size(990, 567);
             this.Controls.Add(this.splitContainer);
             this.Controls.Add(this.mnuMain);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mnuMain;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LiteDB Manager";
