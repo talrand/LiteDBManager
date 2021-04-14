@@ -67,9 +67,30 @@ namespace LiteDBManager
 
                     if (databaseConnection.Connected == true)
                     {
+                        // Clear previous data
+                        ClearControls();
+
+                        // Populate table names
                         PopulateTableNames();
+
+                        // Enable disconnect button
+                        mnuDisconnect.Enabled = true;
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void ClearControls()
+        {
+            try
+            {
+                txtQuery.Text = "";
+                dgvResults.DataSource = null;
+                treeTables.Nodes.Clear();
             }
             catch (Exception ex)
             {
@@ -80,7 +101,7 @@ namespace LiteDBManager
         private void PopulateTableNames()
         {
             List<string> tableNames = null;
-            
+
             try
             {
                 // Remove previous tables
@@ -100,7 +121,21 @@ namespace LiteDBManager
 
                 treeTables.ExpandAll();
             }
-            catch(Exception ex)
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void mnuDisconnect_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                CloseDatabase();
+                ClearControls();
+                mnuDisconnect.Enabled = false;
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
