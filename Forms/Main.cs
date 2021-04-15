@@ -37,6 +37,9 @@ namespace LiteDBManager
             {
                 // Get filenames of recently opened databases
                 RecentFiles.Read();
+
+                // Display version number in form title
+                this.Text += $" v{Application.ProductVersion}";
             }
             catch (Exception ex)
             {
