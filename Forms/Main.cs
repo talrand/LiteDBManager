@@ -101,7 +101,6 @@ namespace LiteDBManager
         private void PopulateTableNames()
         {
             List<string> tableNames = null;
-            TreeNode databaseNode = new TreeNode();
 
             try
             {
@@ -109,15 +108,12 @@ namespace LiteDBManager
                 treeTables.Nodes.Clear();
 
                 // Add database node
-                databaseNode.Text = DatabaseName;
+                treeTables.Nodes.Add(new TreeNode() { Text = DatabaseName, Tag = DatabaseTreeNodeTag });
 
                 if (IsDatabaseReadOnly)
                 {
-                    databaseNode.Text += " [Read Only]";
+                    treeTables.Nodes[0].Text += " [Read Only]";
                 }
-                databaseNode.Tag = DatabaseTreeNodeTag;
-
-                treeTables.Nodes.Add(databaseNode);
 
                 // Get names of all user defined tables
                 tableNames = GetNonSystemTableNames();
