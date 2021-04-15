@@ -43,8 +43,7 @@ namespace LiteDBManager.Classes
             var stringBuilder = new StringBuilder();
             FileInfo fileInfo = null;
 
-            stringBuilder.Append($"filename={fileName};");
-            stringBuilder.Append($"connection={connectionMethod};");
+            stringBuilder.Append($"filename={fileName};");            
 
             if (password != "")
             {
@@ -57,7 +56,12 @@ namespace LiteDBManager.Classes
 
             if(_isDatabaseReadOnly)
             {
-                stringBuilder.Append("readonly=true;");
+                // Read only databases can only be opened in shared mode
+                stringBuilder.Append($"connection={ConnectionMethod.Shared};readonly=true;");
+            }
+            else
+            {
+                stringBuilder.Append($"connection={connectionMethod};");
             }
 
             return stringBuilder.ToString();
