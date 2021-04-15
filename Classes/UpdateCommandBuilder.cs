@@ -19,9 +19,6 @@ namespace LiteDBManager.Classes
 
         public override string ToString()
         {
-            //       Database.Execute($"UPDATE {_currentTable} SET {columnName} = {FormatFieldValue(cell.Value)} WHERE _id = {{\"$oid\": \"{id}\"}}");
-
-
             string setClause = "";
 
             foreach(var field in _fields)
