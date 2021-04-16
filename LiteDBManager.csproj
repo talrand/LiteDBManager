@@ -61,6 +61,12 @@
     <Compile Include="Classes\InsertCommandBuilder.cs" />
     <Compile Include="Classes\RecentFiles.cs" />
     <Compile Include="Classes\UpdateCommandBuilder.cs" />
+    <Compile Include="Controls\QueryPane.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\QueryPane.Designer.cs">
+      <DependentUpon>QueryPane.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\DatabaseConnection.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -75,6 +81,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Controls\QueryPane.resx">
+      <DependentUpon>QueryPane.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\DatabaseConnection.resx">
       <DependentUpon>DatabaseConnection.cs</DependentUpon>
     </EmbeddedResource>
