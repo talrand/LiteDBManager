@@ -32,16 +32,19 @@ namespace LiteDBManager.Controls
             this.components = new System.ComponentModel.Container();
             this.grpResults = new System.Windows.Forms.GroupBox();
             this.dgvResults = new System.Windows.Forms.DataGridView();
+            this.txtNonQueryResult = new System.Windows.Forms.TextBox();
             this.grpQuery = new System.Windows.Forms.GroupBox();
             this.btnExecuteQuery = new System.Windows.Forms.Button();
             this.txtQuery = new System.Windows.Forms.TextBox();
             this.mnuGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.mnuDeleteRow = new System.Windows.Forms.ToolStripMenuItem();
-            this.txtNonQueryResult = new System.Windows.Forms.TextBox();
+            this.panQueryResults = new System.Windows.Forms.Panel();
+            this.lblExecuteResults = new System.Windows.Forms.Label();
             this.grpResults.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResults)).BeginInit();
             this.grpQuery.SuspendLayout();
             this.mnuGrid.SuspendLayout();
+            this.panQueryResults.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpResults
@@ -49,7 +52,7 @@ namespace LiteDBManager.Controls
             this.grpResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpResults.Controls.Add(this.dgvResults);
+            this.grpResults.Controls.Add(this.panQueryResults);
             this.grpResults.Controls.Add(this.txtNonQueryResult);
             this.grpResults.Location = new System.Drawing.Point(3, 152);
             this.grpResults.Name = "grpResults";
@@ -64,15 +67,29 @@ namespace LiteDBManager.Controls
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvResults.Location = new System.Drawing.Point(6, 19);
+            this.dgvResults.Location = new System.Drawing.Point(0, 0);
             this.dgvResults.Name = "dgvResults";
             this.dgvResults.RowHeadersWidth = 51;
-            this.dgvResults.Size = new System.Drawing.Size(713, 261);
+            this.dgvResults.Size = new System.Drawing.Size(709, 240);
             this.dgvResults.TabIndex = 0;
             this.dgvResults.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvResults_CellLeave);
             this.dgvResults.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvResults_CellValueChanged);
             this.dgvResults.RowLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvResults_RowLeave);
             this.dgvResults.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgvResults_MouseClick);
+            // 
+            // txtNonQueryResult
+            // 
+            this.txtNonQueryResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtNonQueryResult.Location = new System.Drawing.Point(6, 19);
+            this.txtNonQueryResult.Multiline = true;
+            this.txtNonQueryResult.Name = "txtNonQueryResult";
+            this.txtNonQueryResult.ReadOnly = true;
+            this.txtNonQueryResult.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtNonQueryResult.Size = new System.Drawing.Size(713, 262);
+            this.txtNonQueryResult.TabIndex = 2;
+            this.txtNonQueryResult.Visible = false;
             // 
             // grpQuery
             // 
@@ -126,19 +143,27 @@ namespace LiteDBManager.Controls
             this.mnuDeleteRow.Text = "Delete Row";
             this.mnuDeleteRow.Click += new System.EventHandler(this.mnuDeleteRow_Click);
             // 
-            // txtNonQueryResult
+            // panQueryResults
             // 
-            this.txtNonQueryResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.panQueryResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNonQueryResult.Location = new System.Drawing.Point(6, 19);
-            this.txtNonQueryResult.Multiline = true;
-            this.txtNonQueryResult.Name = "txtNonQueryResult";
-            this.txtNonQueryResult.ReadOnly = true;
-            this.txtNonQueryResult.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtNonQueryResult.Size = new System.Drawing.Size(713, 262);
-            this.txtNonQueryResult.TabIndex = 2;
-            this.txtNonQueryResult.Visible = false;
+            this.panQueryResults.Controls.Add(this.lblExecuteResults);
+            this.panQueryResults.Controls.Add(this.dgvResults);
+            this.panQueryResults.Location = new System.Drawing.Point(6, 19);
+            this.panQueryResults.Name = "panQueryResults";
+            this.panQueryResults.Size = new System.Drawing.Size(712, 262);
+            this.panQueryResults.TabIndex = 3;
+            // 
+            // lblExecuteResults
+            // 
+            this.lblExecuteResults.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblExecuteResults.Location = new System.Drawing.Point(0, 243);
+            this.lblExecuteResults.Name = "lblExecuteResults";
+            this.lblExecuteResults.Size = new System.Drawing.Size(709, 18);
+            this.lblExecuteResults.TabIndex = 1;
+            this.lblExecuteResults.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // QueryPane
             // 
@@ -154,6 +179,7 @@ namespace LiteDBManager.Controls
             this.grpQuery.ResumeLayout(false);
             this.grpQuery.PerformLayout();
             this.mnuGrid.ResumeLayout(false);
+            this.panQueryResults.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -168,5 +194,7 @@ namespace LiteDBManager.Controls
         private System.Windows.Forms.ContextMenuStrip mnuGrid;
         private System.Windows.Forms.ToolStripMenuItem mnuDeleteRow;
         private System.Windows.Forms.TextBox txtNonQueryResult;
+        private System.Windows.Forms.Panel panQueryResults;
+        private System.Windows.Forms.Label lblExecuteResults;
     }
 }

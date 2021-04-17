@@ -68,7 +68,7 @@ namespace LiteDBManager.Controls
                         GetCurrentTableNameFromSelectQuery();
                         PopulateGridFromSelectQuery();
 
-                        dgvResults.Visible = true;
+                        panQueryResults.Visible = true;
                         txtNonQueryResult.Visible = false;
 
                         return;
@@ -118,10 +118,18 @@ namespace LiteDBManager.Controls
 
         private void PopulateGridFromSelectQuery()
         {
+            ExecuteResult result = null;
+
             try
             {
                 dgvResults.DataSource = null;
-                dgvResults.DataSource = ExecuteQuery(txtQuery.Text);
+                result = ExecuteQuery(txtQuery.Text);
+
+                // Update grid data
+                dgvResults.DataSource = result.Data;
+
+                // Display execution info
+                lblExecuteResults.Text = $"{result.Count} rows | Elapsed time {result.ElapsedTime}";
 
                 // Database in readonly mode
                 if (IsDatabaseReadOnly)
@@ -154,7 +162,7 @@ namespace LiteDBManager.Controls
             try
             {
                 txtNonQueryResult.Visible = true;
-                dgvResults.Visible = false;
+                panQueryResults.Visible = false;
 
                 executeResult = ExecuteNonQuery(txtQuery.Text);
 

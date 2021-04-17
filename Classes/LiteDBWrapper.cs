@@ -98,12 +98,14 @@ namespace LiteDBManager.Classes
             return tableNames;
         }
 
-        public static DataTable ExecuteQuery(string query)
+        public static ExecuteResult ExecuteQuery(string query)
         {
             DataTable dataTable = new DataTable();
             DataRow dataRow = null;
-            
+            Stopwatch stopwatch = new Stopwatch();
+
             // Execute query
+            stopwatch.Start();
             var reader = _database.Execute(query);
 
             // Populate datatable
@@ -132,7 +134,9 @@ namespace LiteDBManager.Classes
                 dataTable.AcceptChanges();
             }
 
-            return dataTable;
+            stopwatch.Stop();
+
+            return new ExecuteResult(dataTable, dataTable.Rows.Count, stopwatch.Elapsed);
         }
 
         public static string FormatFieldValue(object value)
