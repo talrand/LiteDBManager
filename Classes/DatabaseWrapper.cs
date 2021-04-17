@@ -143,14 +143,14 @@ namespace LiteDBManager.Classes
             return value.ToString();
         }
 
-        public static QueryResult ExecuteNonQuery(string command)
+        public static ExecuteResult ExecuteNonQuery(string command)
         {
             Stopwatch stopwatch = new Stopwatch();
 
             stopwatch.Start();
             var reader = _database.Execute(command);
             stopwatch.Stop();
-            return new QueryResult(null, (int)reader.Current.RawValue, stopwatch.Elapsed);
+            return new ExecuteResult(null, (int)reader.Current.RawValue, stopwatch.Elapsed);
         }
 
         public static string FormatIdFieldForWhereClause(string id)

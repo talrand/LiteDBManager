@@ -148,18 +148,18 @@ namespace LiteDBManager.Controls
 
         private void ExecuteNonQueryCommand()
         {
-            QueryResult queryResult = null;
+            ExecuteResult executeResult = null;
 
             try
             {
                 txtNonQueryResult.Visible = true;
                 dgvResults.Visible = false;
 
-                queryResult = ExecuteNonQuery(txtQuery.Text);
+                executeResult = ExecuteNonQuery(txtQuery.Text);
 
                 // Display results
                 txtNonQueryResult.ForeColor = Color.Black;
-                txtNonQueryResult.Text = $"Command completed successfully.{Environment.NewLine + Environment.NewLine}{queryResult.Count} row(s) affected in {queryResult.ElapsedTime}";
+                txtNonQueryResult.Text = $"Command completed successfully.{Environment.NewLine + Environment.NewLine}{executeResult.Count} row(s) affected in {executeResult.ElapsedTime}";
 
             }
             catch (Exception ex)
