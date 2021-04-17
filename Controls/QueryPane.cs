@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Reflection;
 using System.Windows.Forms;
 using LiteDBManager.Classes;
 using static LiteDBManager.Classes.DatabaseWrapper;
+using System.Drawing;
 
 namespace LiteDBManager.Controls
 {
@@ -67,17 +67,16 @@ namespace LiteDBManager.Controls
                     {
                         GetCurrentTableNameFromSelectQuery();
                         PopulateGridFromSelectQuery();
+
+                        dgvResults.Visible = true;
+                        txtNonQueryResult.Visible = false;
+
                         return;
                     }
                 }
 
-                // Execute non-query command
-                Stopwatch stopwatch = new Stopwatch();
-                stopwatch.Start();
-                Database.Execute(txtQuery.Text);
-                stopwatch.Stop();
-
-                MessageBox.Show($"Operation completed in {stopwatch.ElapsedMilliseconds} ms");
+                // Run non-query command
+                ExecuteNonQueryCommand();
             }
             catch (Exception ex)
             {
@@ -147,6 +146,29 @@ namespace LiteDBManager.Controls
             }
         }
 
+        private void ExecuteNonQueryCommand()
+        {
+            QueryResult queryResult = null;
+
+            try
+            {
+                txtNonQueryResult.Visible = true;
+                dgvResults.Visible = false;
+
+                queryResult = ExecuteNonQuery(txtQuery.Text);
+
+                // Display results
+                txtNonQueryResult.ForeColor = Color.Black;
+                txtNonQueryResult.Text = $"Command completed successfully.{Environment.NewLine + Environment.NewLine}{queryResult.Count} row(s) affected in {queryResult.ElapsedTime}";
+
+            }
+            catch (Exception ex)
+            {
+                txtNonQueryResult.ForeColor = Color.Red;
+                txtNonQueryResult.Text = ex.Message;
+            }
+        }
+
         private void dgvResults_RowLeave(object sender, DataGridViewCellEventArgs e)
         {
             var insertCommand = new InsertCommandBuilder();
@@ -186,7 +208,7 @@ namespace LiteDBManager.Controls
                 }
 
                 // Run insert command
-                Database.Execute(insertCommand.ToString());
+                ExecuteNonQuery(insertCommand.ToString());
 
                 // Re-run query command - needs to use BeginInvoke call to avoid reentrant errors
                 BeginInvoke(new MethodInvoker(PopulateGridFromSelectQuery));
@@ -254,7 +276,7 @@ namespace LiteDBManager.Controls
                 updateCommand.AddField(columnName, cell.Value);
                 updateCommand.SetWhereClause($"_id={FormatIdFieldForWhereClause(id)}");
 
-                Database.Execute(updateCommand.ToString());
+                ExecuteNonQuery(updateCommand.ToString());
             }
             catch (Exception ex)
             {
@@ -318,7 +340,7 @@ namespace LiteDBManager.Controls
                 if (MessageBox.Show("Are you sure you want to delete this row?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     // Delete row and repopulate grid
-                    Database.Execute($"DELETE {_currentTable} WHERE _id = {FormatIdFieldForWhereClause(id)}");
+                    ExecuteNonQuery($"DELETE {_currentTable} WHERE _id = {FormatIdFieldForWhereClause(id)}");
                     PopulateGridFromSelectQuery();
                 }
             }

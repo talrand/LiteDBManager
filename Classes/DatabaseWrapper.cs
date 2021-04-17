@@ -5,6 +5,7 @@ using System.IO;
 using System.Data;
 using static LiteDBManager.Classes.BsonTypeMapper;
 using System.Text;
+using System.Diagnostics;
 
 namespace LiteDBManager.Classes
 {
@@ -22,7 +23,6 @@ namespace LiteDBManager.Classes
         private static string _databaseName = "";
         private static bool _isDatabaseReadOnly = false;
 
-        public static LiteDatabase Database { get { return _database; } }
         public static string DatabaseName { get { return _databaseName; } }
         public static bool IsDatabaseReadOnly { get { return _isDatabaseReadOnly; } }
 
@@ -141,6 +141,16 @@ namespace LiteDBManager.Classes
             }
 
             return value.ToString();
+        }
+
+        public static QueryResult ExecuteNonQuery(string command)
+        {
+            Stopwatch stopwatch = new Stopwatch();
+
+            stopwatch.Start();
+            var reader = _database.Execute(command);
+            stopwatch.Stop();
+            return new QueryResult(null, (int)reader.Current.RawValue, stopwatch.Elapsed);
         }
 
         public static string FormatIdFieldForWhereClause(string id)

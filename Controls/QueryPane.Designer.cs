@@ -37,6 +37,7 @@ namespace LiteDBManager.Controls
             this.txtQuery = new System.Windows.Forms.TextBox();
             this.mnuGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.mnuDeleteRow = new System.Windows.Forms.ToolStripMenuItem();
+            this.txtNonQueryResult = new System.Windows.Forms.TextBox();
             this.grpResults.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResults)).BeginInit();
             this.grpQuery.SuspendLayout();
@@ -49,6 +50,7 @@ namespace LiteDBManager.Controls
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpResults.Controls.Add(this.dgvResults);
+            this.grpResults.Controls.Add(this.txtNonQueryResult);
             this.grpResults.Location = new System.Drawing.Point(3, 152);
             this.grpResults.Name = "grpResults";
             this.grpResults.Size = new System.Drawing.Size(725, 287);
@@ -114,7 +116,7 @@ namespace LiteDBManager.Controls
             this.mnuGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuDeleteRow});
             this.mnuGrid.Name = "mnuGrid";
-            this.mnuGrid.Size = new System.Drawing.Size(181, 48);
+            this.mnuGrid.Size = new System.Drawing.Size(134, 26);
             this.mnuGrid.Opening += new System.ComponentModel.CancelEventHandler(this.mnuGrid_Opening);
             // 
             // mnuDeleteRow
@@ -123,6 +125,20 @@ namespace LiteDBManager.Controls
             this.mnuDeleteRow.Size = new System.Drawing.Size(133, 22);
             this.mnuDeleteRow.Text = "Delete Row";
             this.mnuDeleteRow.Click += new System.EventHandler(this.mnuDeleteRow_Click);
+            // 
+            // txtNonQueryResult
+            // 
+            this.txtNonQueryResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtNonQueryResult.Location = new System.Drawing.Point(6, 19);
+            this.txtNonQueryResult.Multiline = true;
+            this.txtNonQueryResult.Name = "txtNonQueryResult";
+            this.txtNonQueryResult.ReadOnly = true;
+            this.txtNonQueryResult.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtNonQueryResult.Size = new System.Drawing.Size(713, 262);
+            this.txtNonQueryResult.TabIndex = 2;
+            this.txtNonQueryResult.Visible = false;
             // 
             // QueryPane
             // 
@@ -133,6 +149,7 @@ namespace LiteDBManager.Controls
             this.Name = "QueryPane";
             this.Size = new System.Drawing.Size(731, 442);
             this.grpResults.ResumeLayout(false);
+            this.grpResults.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResults)).EndInit();
             this.grpQuery.ResumeLayout(false);
             this.grpQuery.PerformLayout();
@@ -150,5 +167,6 @@ namespace LiteDBManager.Controls
         private System.Windows.Forms.TextBox txtQuery;
         private System.Windows.Forms.ContextMenuStrip mnuGrid;
         private System.Windows.Forms.ToolStripMenuItem mnuDeleteRow;
+        private System.Windows.Forms.TextBox txtNonQueryResult;
     }
 }
