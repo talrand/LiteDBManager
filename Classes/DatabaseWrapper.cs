@@ -17,6 +17,12 @@ namespace LiteDBManager.Classes
             public const string Exclusive = "exclusive";
         }
 
+        public struct TableType
+        {
+            public const string System = "system";
+            public const string User = "user";
+        }
+
         public const string DatabaseFilter = "Database files|*.db";
 
         private static LiteDatabase _database = null;
@@ -73,16 +79,15 @@ namespace LiteDBManager.Classes
             _database = null;
         }
 
-        public static List<string> GetNonSystemTableNames()
+        public static List<string> GetTableNames(string tableType)
         {
             var tableNames = new List<string>();
-            // Get user defined tables
-            var reader = _database.Execute("SELECT name from $cols WHERE Type = 'user'");
-            
-            while(reader.Read())
+            var reader = _database.Execute($"SELECT name from $cols WHERE Type = '{tableType}'");
+
+            while (reader.Read())
             {
                 var keyValuePairs = (Dictionary<string, BsonValue>)reader.Current.RawValue;
-               
+
                 // Add table name to collection
                 foreach (var value in keyValuePairs)
                 {

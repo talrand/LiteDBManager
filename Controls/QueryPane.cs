@@ -120,6 +120,7 @@ namespace LiteDBManager.Controls
         {
             try
             {
+                dgvResults.DataSource = null;
                 dgvResults.DataSource = ExecuteQuery(txtQuery.Text);
 
                 // Database in readonly mode
@@ -128,17 +129,17 @@ namespace LiteDBManager.Controls
                     dgvResults.ReadOnly = true;
                     return;
                 }
-
-                // Stop users editing internal _id column
-                if (dgvResults.Columns.Contains("_id"))
-                {
-                    dgvResults.Columns["_id"].ReadOnly = true;
-                    dgvResults.ReadOnly = false;
-                }
-                else
+                
+                // _id column not present - set grid to read only to prevent errors when updating cells / inserting new rows
+                if (dgvResults.Columns.Contains("_id") == false)
                 {
                     dgvResults.ReadOnly = true;
+                    return;
                 }
+
+                // Stop users editing internal _id column
+                dgvResults.Columns["_id"].ReadOnly = true;
+                dgvResults.ReadOnly = false;
             }
             catch (Exception ex)
             {
@@ -260,6 +261,11 @@ namespace LiteDBManager.Controls
 
             try
             {
+                if (dgvResults.ReadOnly)
+                {
+                    return;
+                }
+
                 // Get values from grid
                 cell = dgvResults.Rows[e.RowIndex].Cells[e.ColumnIndex];
                 columnName = dgvResults.Columns[e.ColumnIndex].Name;

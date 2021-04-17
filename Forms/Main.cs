@@ -10,8 +10,13 @@ namespace LiteDBManager
 {
     public partial class frmMain : Form
     {        
-        private const string DatabaseTreeNodeTag = "DB";
-        private const string TableTreeNodeTag = "Table";
+        private struct DatabaseExplorerNodeTags
+        {
+            public const string Database = "DB";
+            public const string System = "System";
+            public const string UserTable = "UserTable";
+            public const string SystemTable = "SystemTable";
+        }
 
         public frmMain()
         {
@@ -61,7 +66,7 @@ namespace LiteDBManager
                         ClearControls();
 
                         // Populate table names
-                        PopulateTableNames();
+                        PopulateDatabaseExplorer();
 
                         // Enable menu items
                         mnuDisconnect.Enabled = true;
@@ -89,33 +94,73 @@ namespace LiteDBManager
             }
         }
 
-        private void PopulateTableNames()
+        private void PopulateDatabaseExplorer()
         {
-            List<string> tableNames = null;
-
             try
             {
                 // Remove previous tables
                 treeTables.Nodes.Clear();
 
                 // Add database node
-                treeTables.Nodes.Add(new TreeNode() { Text = DatabaseName, Tag = DatabaseTreeNodeTag });
+                treeTables.Nodes.Add(new TreeNode() { Text = DatabaseName, Tag = DatabaseExplorerNodeTags.Database });
 
                 if (IsDatabaseReadOnly)
                 {
                     treeTables.Nodes[0].Text += " [Read Only]";
                 }
 
+                // Add tables
+                AddSystemTablesToDatabaseExplorer();
+                AddUserTablesToDatabaseExplorer();
+
+                treeTables.Nodes[0].Expand();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void AddSystemTablesToDatabaseExplorer()
+        {
+            List<string> tableNames = null;
+            TreeNode systemTreeNode = null;
+
+            try
+            {
+                systemTreeNode = new TreeNode() { Text = "System", Tag = DatabaseExplorerNodeTags.System };           
+
+                // Get all system tables and add them to system node
+                tableNames = GetTableNames(TableType.System);
+
+                foreach (string tableName in tableNames)
+                {
+                    systemTreeNode.Nodes.Add(new TreeNode() { Text = tableName, Tag = DatabaseExplorerNodeTags.SystemTable });
+                }
+
+                // Add system node to database node
+                treeTables.Nodes[0].Nodes.Add(systemTreeNode);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void AddUserTablesToDatabaseExplorer()
+        {
+            List<string> tableNames = null;
+
+            try
+            {
                 // Get names of all user defined tables
-                tableNames = GetNonSystemTableNames();
+                tableNames = GetTableNames(TableType.User);
 
                 // Populate treeview
                 foreach (string tableName in tableNames)
                 {
-                    treeTables.Nodes[0].Nodes.Add(new TreeNode() { Text = tableName, Tag = TableTreeNodeTag });
+                    treeTables.Nodes[0].Nodes.Add(new TreeNode() { Text = tableName, Tag = DatabaseExplorerNodeTags.UserTable });
                 }
-
-                treeTables.ExpandAll();
             }
             catch (Exception ex)
             {
@@ -143,7 +188,7 @@ namespace LiteDBManager
         {
             try
             {
-                if (e.Node.Tag.ToString() == DatabaseTreeNodeTag)
+                if (e.Node.Tag.ToString() == DatabaseExplorerNodeTags.Database)
                 {
                     return;
                 }
