@@ -4,7 +4,7 @@ using System.Windows.Forms;
 using LiteDBManager.Classes;
 using LiteDBManager.Forms;
 using LiteDBManager.Controls;
-using static LiteDBManager.Classes.DatabaseWrapper;
+using static LiteDBManager.Classes.LiteDBWrapper;
 
 namespace LiteDBManager
 {

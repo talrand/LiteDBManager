@@ -9,7 +9,7 @@ using System.Diagnostics;
 
 namespace LiteDBManager.Classes
 {
-    public static class DatabaseWrapper
+    public static class LiteDBWrapper
     {
         public struct ConnectionMethod
         {

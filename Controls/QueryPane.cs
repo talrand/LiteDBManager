@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Windows.Forms;
 using LiteDBManager.Classes;
-using static LiteDBManager.Classes.DatabaseWrapper;
+using static LiteDBManager.Classes.LiteDBWrapper;
 using System.Drawing;
 
 namespace LiteDBManager.Controls
