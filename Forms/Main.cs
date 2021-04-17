@@ -66,6 +66,7 @@ namespace LiteDBManager
                         // Enable menu items
                         mnuDisconnect.Enabled = true;
                         mnuNewQuery.Enabled = true;
+                        mnuQueries.Enabled = true;
                     }
                 }
             }
@@ -130,6 +131,7 @@ namespace LiteDBManager
                 ClearControls();
                 mnuDisconnect.Enabled = false;
                 mnuNewQuery.Enabled = false;
+                mnuQueries.Enabled = false;
             }
             catch (Exception ex)
             {
@@ -183,6 +185,71 @@ namespace LiteDBManager
 
                 // Select new tab
                 tabQueries.SelectedTab = queryTab;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void mnuCloseCurrentQuery_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                tabQueries.TabPages.Remove(tabQueries.SelectedTab);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void mnuCloseAllButCurrentQuery_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                foreach(TabPage tabPage in tabQueries.TabPages)
+                {
+                    if(tabPage != tabQueries.SelectedTab)
+                    {
+                        tabQueries.TabPages.Remove(tabPage);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void mnuCloseAllQueries_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                tabQueries.TabPages.Clear();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void mnuQueries_DropDownOpening(object sender, EventArgs e)
+        {
+            bool enabled = false;
+
+            try
+            {
+                // Only enable query pane menu items if there are any open tabs 
+                if(tabQueries.TabPages.Count > 0)
+                {
+                    enabled = true;
+                }
+
+                mnuCloseCurrentQuery.Enabled = enabled;
+                mnuCloseAllButCurrentQuery.Enabled = enabled;
+                mnuCloseAllQueries.Enabled = enabled;
+
             }
             catch (Exception ex)
             {

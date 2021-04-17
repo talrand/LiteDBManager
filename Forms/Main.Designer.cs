@@ -34,6 +34,10 @@ namespace LiteDBManager
             this.mnuOpenDatabase = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuDisconnect = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuNewQuery = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuQueries = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuCloseCurrentQuery = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuCloseAllButCurrentQuery = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuCloseAllQueries = new System.Windows.Forms.ToolStripMenuItem();
             this.treeTables = new System.Windows.Forms.TreeView();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.grpDatabaseExplorer = new System.Windows.Forms.GroupBox();
@@ -52,7 +56,8 @@ namespace LiteDBManager
             this.mnuMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuOpenDatabase,
             this.mnuDisconnect,
-            this.mnuNewQuery});
+            this.mnuNewQuery,
+            this.mnuQueries});
             this.mnuMain.Location = new System.Drawing.Point(0, 0);
             this.mnuMain.Name = "mnuMain";
             this.mnuMain.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
@@ -82,6 +87,39 @@ namespace LiteDBManager
             this.mnuNewQuery.Size = new System.Drawing.Size(78, 20);
             this.mnuNewQuery.Text = "New Query";
             this.mnuNewQuery.Click += new System.EventHandler(this.mnuNewQuery_Click);
+            // 
+            // mnuQueries
+            // 
+            this.mnuQueries.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuCloseCurrentQuery,
+            this.mnuCloseAllButCurrentQuery,
+            this.mnuCloseAllQueries});
+            this.mnuQueries.Enabled = false;
+            this.mnuQueries.Name = "mnuQueries";
+            this.mnuQueries.Size = new System.Drawing.Size(85, 20);
+            this.mnuQueries.Text = "Query Panes";
+            this.mnuQueries.DropDownOpening += new System.EventHandler(this.mnuQueries_DropDownOpening);
+            // 
+            // mnuCloseCurrentQuery
+            // 
+            this.mnuCloseCurrentQuery.Name = "mnuCloseCurrentQuery";
+            this.mnuCloseCurrentQuery.Size = new System.Drawing.Size(184, 22);
+            this.mnuCloseCurrentQuery.Text = "Close Current";
+            this.mnuCloseCurrentQuery.Click += new System.EventHandler(this.mnuCloseCurrentQuery_Click);
+            // 
+            // mnuCloseAllButCurrentQuery
+            // 
+            this.mnuCloseAllButCurrentQuery.Name = "mnuCloseAllButCurrentQuery";
+            this.mnuCloseAllButCurrentQuery.Size = new System.Drawing.Size(184, 22);
+            this.mnuCloseAllButCurrentQuery.Text = "Close All But Current";
+            this.mnuCloseAllButCurrentQuery.Click += new System.EventHandler(this.mnuCloseAllButCurrentQuery_Click);
+            // 
+            // mnuCloseAllQueries
+            // 
+            this.mnuCloseAllQueries.Name = "mnuCloseAllQueries";
+            this.mnuCloseAllQueries.Size = new System.Drawing.Size(184, 22);
+            this.mnuCloseAllQueries.Text = "Close All";
+            this.mnuCloseAllQueries.Click += new System.EventHandler(this.mnuCloseAllQueries_Click);
             // 
             // treeTables
             // 
@@ -171,6 +209,10 @@ namespace LiteDBManager
         private System.Windows.Forms.ToolStripMenuItem mnuDisconnect;
         private System.Windows.Forms.ToolStripMenuItem mnuNewQuery;
         private System.Windows.Forms.TabControl tabQueries;
+        private System.Windows.Forms.ToolStripMenuItem mnuQueries;
+        private System.Windows.Forms.ToolStripMenuItem mnuCloseCurrentQuery;
+        private System.Windows.Forms.ToolStripMenuItem mnuCloseAllButCurrentQuery;
+        private System.Windows.Forms.ToolStripMenuItem mnuCloseAllQueries;
     }
 }
 
