@@ -9,7 +9,7 @@ using static LiteDBManager.Classes.LiteDBWrapper;
 namespace LiteDBManager
 {
     public partial class frmMain : Form
-    {        
+    {
         private struct DatabaseExplorerNodeTags
         {
             public const string Database = "DB";
@@ -35,7 +35,7 @@ namespace LiteDBManager
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                new frmSystemError() { Exception = ex }.ShowDialog();
             }
         }
 
@@ -48,12 +48,12 @@ namespace LiteDBManager
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                new frmSystemError() { Exception = ex }.ShowDialog();
             }
         }
 
         private void mnuOpenDatabase_Click(object sender, EventArgs e)
-        {           
+        {
             try
             {
                 using (var databaseConnection = new frmDatabaseConnection())
@@ -77,48 +77,34 @@ namespace LiteDBManager
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                new frmSystemError() { Exception = ex }.ShowDialog();
             }
         }
 
         private void ClearControls()
         {
-            try
-            {
-                treeTables.Nodes.Clear();
-                tabQueries.TabPages.Clear();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            treeTables.Nodes.Clear();
+            tabQueries.TabPages.Clear();
         }
 
         private void PopulateDatabaseExplorer()
         {
-            try
+            // Remove previous tables
+            treeTables.Nodes.Clear();
+
+            // Add database node
+            treeTables.Nodes.Add(new TreeNode() { Text = DatabaseName, Tag = DatabaseExplorerNodeTags.Database, ImageIndex = 0 });
+
+            if (IsDatabaseReadOnly)
             {
-                // Remove previous tables
-                treeTables.Nodes.Clear();
-
-                // Add database node
-                treeTables.Nodes.Add(new TreeNode() { Text = DatabaseName, Tag = DatabaseExplorerNodeTags.Database, ImageIndex = 0 });
-
-                if (IsDatabaseReadOnly)
-                {
-                    treeTables.Nodes[0].Text += " [Read Only]";
-                }
-
-                // Add tables
-                AddSystemTablesToDatabaseExplorer();
-                AddUserTablesToDatabaseExplorer();
-
-                treeTables.Nodes[0].Expand();
+                treeTables.Nodes[0].Text += " [Read Only]";
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+
+            // Add tables
+            AddSystemTablesToDatabaseExplorer();
+            AddUserTablesToDatabaseExplorer();
+
+            treeTables.Nodes[0].Expand();
         }
 
         private void AddSystemTablesToDatabaseExplorer()
@@ -126,45 +112,31 @@ namespace LiteDBManager
             List<string> tableNames = null;
             TreeNode systemTreeNode = null;
 
-            try
+            systemTreeNode = new TreeNode() { Text = "System", Tag = DatabaseExplorerNodeTags.System, ImageIndex = 1, SelectedImageIndex = 1 };
+
+            // Get all system tables and add them to system node
+            tableNames = GetTableNames(TableType.System);
+
+            foreach (string tableName in tableNames)
             {
-                systemTreeNode = new TreeNode() { Text = "System", Tag = DatabaseExplorerNodeTags.System, ImageIndex = 1, SelectedImageIndex = 1 };           
-
-                // Get all system tables and add them to system node
-                tableNames = GetTableNames(TableType.System);
-
-                foreach (string tableName in tableNames)
-                {
-                    systemTreeNode.Nodes.Add(new TreeNode() { Text = tableName, Tag = DatabaseExplorerNodeTags.SystemTable, ImageIndex = 2, SelectedImageIndex = 2 });
-                }
-
-                // Add system node to database node
-                treeTables.Nodes[0].Nodes.Add(systemTreeNode);
+                systemTreeNode.Nodes.Add(new TreeNode() { Text = tableName, Tag = DatabaseExplorerNodeTags.SystemTable, ImageIndex = 2, SelectedImageIndex = 2 });
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+
+            // Add system node to database node
+            treeTables.Nodes[0].Nodes.Add(systemTreeNode);
         }
 
         private void AddUserTablesToDatabaseExplorer()
         {
             List<string> tableNames = null;
 
-            try
-            {
-                // Get names of all user defined tables
-                tableNames = GetTableNames(TableType.User);
+            // Get names of all user defined tables
+            tableNames = GetTableNames(TableType.User);
 
-                // Populate treeview
-                foreach (string tableName in tableNames)
-                {
-                    treeTables.Nodes[0].Nodes.Add(new TreeNode() { Text = tableName, Tag = DatabaseExplorerNodeTags.UserTable, ImageIndex = 2, SelectedImageIndex = 2 });
-                }
-            }
-            catch (Exception ex)
+            // Populate treeview
+            foreach (string tableName in tableNames)
             {
-                MessageBox.Show(ex.Message);
+                treeTables.Nodes[0].Nodes.Add(new TreeNode() { Text = tableName, Tag = DatabaseExplorerNodeTags.UserTable, ImageIndex = 2, SelectedImageIndex = 2 });
             }
         }
 
@@ -180,7 +152,7 @@ namespace LiteDBManager
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                new frmSystemError() { Exception = ex }.ShowDialog();
             }
         }
 
@@ -209,32 +181,25 @@ namespace LiteDBManager
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                new frmSystemError() { Exception = ex }.ShowDialog();
             }
         }
 
         private void CreateNewQueryPane(string queryText = "")
         {
-            try
-            {
-                // Create new query tab
-                TabPage queryTab = new TabPage() { Text = $"Query {tabQueries.TabPages.Count + 1}" };
-                
-                // Create new query pane
-                QueryPane queryPane = new QueryPane() { Dock = DockStyle.Fill };
-                queryPane.SetQueryText(queryText);
-                queryTab.Controls.Add(queryPane);
+            // Create new query tab
+            TabPage queryTab = new TabPage() { Text = $"Query {tabQueries.TabPages.Count + 1}" };
 
-                // Add to new tab
-                tabQueries.Controls.Add(queryTab);
+            // Create new query pane
+            QueryPane queryPane = new QueryPane() { Dock = DockStyle.Fill };
+            queryPane.SetQueryText(queryText);
+            queryTab.Controls.Add(queryPane);
 
-                // Select new tab
-                tabQueries.SelectedTab = queryTab;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            // Add to new tab
+            tabQueries.Controls.Add(queryTab);
+
+            // Select new tab
+            tabQueries.SelectedTab = queryTab;
         }
 
         private void mnuCloseCurrentQuery_Click(object sender, EventArgs e)
@@ -245,7 +210,7 @@ namespace LiteDBManager
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                new frmSystemError() { Exception = ex }.ShowDialog();
             }
         }
 
@@ -253,9 +218,9 @@ namespace LiteDBManager
         {
             try
             {
-                foreach(TabPage tabPage in tabQueries.TabPages)
+                foreach (TabPage tabPage in tabQueries.TabPages)
                 {
-                    if(tabPage != tabQueries.SelectedTab)
+                    if (tabPage != tabQueries.SelectedTab)
                     {
                         tabQueries.TabPages.Remove(tabPage);
                     }
@@ -263,7 +228,7 @@ namespace LiteDBManager
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                new frmSystemError() { Exception = ex }.ShowDialog();
             }
         }
 
@@ -275,7 +240,7 @@ namespace LiteDBManager
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                new frmSystemError() { Exception = ex }.ShowDialog();
             }
         }
 
@@ -286,7 +251,7 @@ namespace LiteDBManager
             try
             {
                 // Only enable query pane menu items if there are any open tabs 
-                if(tabQueries.TabPages.Count > 0)
+                if (tabQueries.TabPages.Count > 0)
                 {
                     enabled = true;
                 }
@@ -298,7 +263,7 @@ namespace LiteDBManager
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                new frmSystemError() { Exception = ex }.ShowDialog();
             }
         }
     }

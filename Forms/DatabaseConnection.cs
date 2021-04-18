@@ -25,42 +25,28 @@ namespace LiteDBManager.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                new frmSystemError() { Exception = ex }.ShowDialog();
             }
         }
 
         private void PopulateConnectionMethods()
         {
-            try
-            {
-                cboMethod.Items.Add(ConnectionMethod.Shared);
-                cboMethod.Items.Add(ConnectionMethod.Exclusive);
-                cboMethod.SelectedIndex = 0;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            cboMethod.Items.Add(ConnectionMethod.Shared);
+            cboMethod.Items.Add(ConnectionMethod.Exclusive);
+            cboMethod.SelectedIndex = 0;
         }
 
         private void PopulateRecentFileNames()
         {
-            try
+            foreach (string file in RecentFiles.Files)
             {
-                foreach(string file in RecentFiles.Files)
-                {
-                    cboFileName.Items.Add(file);
-                }
-
-                // Select first item
-                if(cboFileName.Items.Count > 0)
-                {
-                    cboFileName.SelectedIndex = 0;
-                }
+                cboFileName.Items.Add(file);
             }
-            catch (Exception ex)
+
+            // Select first item
+            if (cboFileName.Items.Count > 0)
             {
-                MessageBox.Show(ex.Message);
+                cboFileName.SelectedIndex = 0;
             }
         }
 
@@ -78,7 +64,7 @@ namespace LiteDBManager.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                new frmSystemError() { Exception = ex }.ShowDialog();
             }
         }
 
@@ -92,7 +78,7 @@ namespace LiteDBManager.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                new frmSystemError() { Exception = ex }.ShowDialog();
             }
         }
 
@@ -104,7 +90,7 @@ namespace LiteDBManager.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                new frmSystemError() { Exception = ex }.ShowDialog();
             }
         }
     }

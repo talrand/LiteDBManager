@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using LiteDBManager.Classes;
 using static LiteDBManager.Classes.LiteDBWrapper;
 using System.Drawing;
+using LiteDBManager.Forms;
 
 namespace LiteDBManager.Controls
 {
@@ -22,33 +23,19 @@ namespace LiteDBManager.Controls
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                new frmSystemError() { Exception = ex }.ShowDialog();
             }
         }
 
         public void SetQueryText(string query)
         {
-            try
-            {
-                txtQuery.Text = query;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            txtQuery.Text = query;
         }
 
         public void Clear()
         {
-            try
-            {
-                txtQuery.Text = "";
-                dgvResults.DataSource = null;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            txtQuery.Text = "";
+            dgvResults.DataSource = null;
         }
 
         private void btnExecuteQuery_Click(object sender, EventArgs e)
@@ -80,7 +67,7 @@ namespace LiteDBManager.Controls
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                new frmSystemError() { Exception = ex }.ShowDialog();
             }
         }
 
@@ -89,30 +76,23 @@ namespace LiteDBManager.Controls
             string[] words = null;
             bool fromKeyWordFound = false;
 
-            try
-            {
-                words = txtQuery.Text.Split(new string[] { " " }, StringSplitOptions.None);
+            words = txtQuery.Text.Split(new string[] { " " }, StringSplitOptions.None);
 
-                foreach (string word in words)
+            foreach (string word in words)
+            {
+                // FROM keyword found - store current word as table name
+                if (fromKeyWordFound == true)
                 {
-                    // FROM keyword found - store current word as table name
-                    if (fromKeyWordFound == true)
-                    {
-                        _currentTable = word.Trim();
-                        break;
-                    }
-
-                    // If current word is the FROM keyword, next word is the table name
-                    if (word.Trim().Equals("FROM", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        fromKeyWordFound = true;
-                        continue;
-                    }
+                    _currentTable = word.Trim();
+                    break;
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+
+                // If current word is the FROM keyword, next word is the table name
+                if (word.Trim().Equals("FROM", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    fromKeyWordFound = true;
+                    continue;
+                }
             }
         }
 
@@ -120,8 +100,6 @@ namespace LiteDBManager.Controls
         {
             ExecuteResult result = null;
 
-            try
-            {
                 dgvResults.DataSource = null;
                 result = ExecuteQuery(txtQuery.Text);
 
@@ -137,7 +115,7 @@ namespace LiteDBManager.Controls
                     dgvResults.ReadOnly = true;
                     return;
                 }
-                
+
                 // _id column not present - set grid to read only to prevent errors when updating cells / inserting new rows
                 if (dgvResults.Columns.Contains("_id") == false)
                 {
@@ -148,11 +126,6 @@ namespace LiteDBManager.Controls
                 // Stop users editing internal _id column
                 dgvResults.Columns["_id"].ReadOnly = true;
                 dgvResults.ReadOnly = false;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
         }
 
         private void ExecuteNonQueryCommand()
@@ -224,7 +197,7 @@ namespace LiteDBManager.Controls
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                new frmSystemError() { Exception = ex }.ShowDialog();
             }
         }
 
@@ -256,7 +229,7 @@ namespace LiteDBManager.Controls
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                new frmSystemError() { Exception = ex }.ShowDialog();
             }
         }
 
@@ -294,7 +267,7 @@ namespace LiteDBManager.Controls
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                new frmSystemError() { Exception = ex }.ShowDialog();
             }
         }
 
@@ -309,7 +282,7 @@ namespace LiteDBManager.Controls
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                new frmSystemError() { Exception = ex }.ShowDialog();
             }
         }
 
@@ -328,7 +301,7 @@ namespace LiteDBManager.Controls
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                new frmSystemError() { Exception = ex }.ShowDialog();
             }
         }
 
@@ -360,7 +333,7 @@ namespace LiteDBManager.Controls
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                new frmSystemError() { Exception = ex }.ShowDialog();
             }
         }
     }
