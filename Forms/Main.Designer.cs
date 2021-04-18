@@ -29,6 +29,7 @@ namespace LiteDBManager
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.mnuMain = new System.Windows.Forms.MenuStrip();
             this.mnuOpenDatabase = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,6 +43,7 @@ namespace LiteDBManager
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.grpDatabaseExplorer = new System.Windows.Forms.GroupBox();
             this.tabQueries = new System.Windows.Forms.TabControl();
+            this.imgDatabaseExplorer = new System.Windows.Forms.ImageList(this.components);
             this.mnuMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
@@ -60,15 +62,15 @@ namespace LiteDBManager
             this.mnuQueries});
             this.mnuMain.Location = new System.Drawing.Point(0, 0);
             this.mnuMain.Name = "mnuMain";
-            this.mnuMain.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.mnuMain.Size = new System.Drawing.Size(990, 24);
+            this.mnuMain.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.mnuMain.Size = new System.Drawing.Size(1320, 28);
             this.mnuMain.TabIndex = 0;
             this.mnuMain.Text = "menuStrip1";
             // 
             // mnuOpenDatabase
             // 
             this.mnuOpenDatabase.Name = "mnuOpenDatabase";
-            this.mnuOpenDatabase.Size = new System.Drawing.Size(64, 20);
+            this.mnuOpenDatabase.Size = new System.Drawing.Size(77, 24);
             this.mnuOpenDatabase.Text = "Connect";
             this.mnuOpenDatabase.Click += new System.EventHandler(this.mnuOpenDatabase_Click);
             // 
@@ -76,7 +78,7 @@ namespace LiteDBManager
             // 
             this.mnuDisconnect.Enabled = false;
             this.mnuDisconnect.Name = "mnuDisconnect";
-            this.mnuDisconnect.Size = new System.Drawing.Size(78, 20);
+            this.mnuDisconnect.Size = new System.Drawing.Size(96, 24);
             this.mnuDisconnect.Text = "Disconnect";
             this.mnuDisconnect.Click += new System.EventHandler(this.mnuDisconnect_Click);
             // 
@@ -84,7 +86,7 @@ namespace LiteDBManager
             // 
             this.mnuNewQuery.Enabled = false;
             this.mnuNewQuery.Name = "mnuNewQuery";
-            this.mnuNewQuery.Size = new System.Drawing.Size(78, 20);
+            this.mnuNewQuery.Size = new System.Drawing.Size(96, 24);
             this.mnuNewQuery.Text = "New Query";
             this.mnuNewQuery.Click += new System.EventHandler(this.mnuNewQuery_Click);
             // 
@@ -96,28 +98,28 @@ namespace LiteDBManager
             this.mnuCloseAllQueries});
             this.mnuQueries.Enabled = false;
             this.mnuQueries.Name = "mnuQueries";
-            this.mnuQueries.Size = new System.Drawing.Size(85, 20);
+            this.mnuQueries.Size = new System.Drawing.Size(103, 24);
             this.mnuQueries.Text = "Query Panes";
             this.mnuQueries.DropDownOpening += new System.EventHandler(this.mnuQueries_DropDownOpening);
             // 
             // mnuCloseCurrentQuery
             // 
             this.mnuCloseCurrentQuery.Name = "mnuCloseCurrentQuery";
-            this.mnuCloseCurrentQuery.Size = new System.Drawing.Size(184, 22);
+            this.mnuCloseCurrentQuery.Size = new System.Drawing.Size(228, 26);
             this.mnuCloseCurrentQuery.Text = "Close Current";
             this.mnuCloseCurrentQuery.Click += new System.EventHandler(this.mnuCloseCurrentQuery_Click);
             // 
             // mnuCloseAllButCurrentQuery
             // 
             this.mnuCloseAllButCurrentQuery.Name = "mnuCloseAllButCurrentQuery";
-            this.mnuCloseAllButCurrentQuery.Size = new System.Drawing.Size(184, 22);
+            this.mnuCloseAllButCurrentQuery.Size = new System.Drawing.Size(228, 26);
             this.mnuCloseAllButCurrentQuery.Text = "Close All But Current";
             this.mnuCloseAllButCurrentQuery.Click += new System.EventHandler(this.mnuCloseAllButCurrentQuery_Click);
             // 
             // mnuCloseAllQueries
             // 
             this.mnuCloseAllQueries.Name = "mnuCloseAllQueries";
-            this.mnuCloseAllQueries.Size = new System.Drawing.Size(184, 22);
+            this.mnuCloseAllQueries.Size = new System.Drawing.Size(228, 26);
             this.mnuCloseAllQueries.Text = "Close All";
             this.mnuCloseAllQueries.Click += new System.EventHandler(this.mnuCloseAllQueries_Click);
             // 
@@ -126,9 +128,13 @@ namespace LiteDBManager
             this.treeTables.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.treeTables.Location = new System.Drawing.Point(4, 19);
+            this.treeTables.ImageIndex = 2;
+            this.treeTables.ImageList = this.imgDatabaseExplorer;
+            this.treeTables.Location = new System.Drawing.Point(5, 23);
+            this.treeTables.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.treeTables.Name = "treeTables";
-            this.treeTables.Size = new System.Drawing.Size(208, 608);
+            this.treeTables.SelectedImageIndex = 0;
+            this.treeTables.Size = new System.Drawing.Size(202, 748);
             this.treeTables.TabIndex = 0;
             this.treeTables.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeTables_NodeMouseDoubleClick);
             // 
@@ -137,7 +143,8 @@ namespace LiteDBManager
             this.splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.splitContainer.IsSplitterFixed = true;
-            this.splitContainer.Location = new System.Drawing.Point(0, 24);
+            this.splitContainer.Location = new System.Drawing.Point(0, 28);
+            this.splitContainer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.splitContainer.Name = "splitContainer";
             // 
             // splitContainer.Panel1
@@ -147,8 +154,9 @@ namespace LiteDBManager
             // splitContainer.Panel2
             // 
             this.splitContainer.Panel2.Controls.Add(this.tabQueries);
-            this.splitContainer.Size = new System.Drawing.Size(990, 632);
+            this.splitContainer.Size = new System.Drawing.Size(1320, 779);
             this.splitContainer.SplitterDistance = 221;
+            this.splitContainer.SplitterWidth = 5;
             this.splitContainer.TabIndex = 3;
             // 
             // grpDatabaseExplorer
@@ -157,9 +165,11 @@ namespace LiteDBManager
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpDatabaseExplorer.Controls.Add(this.treeTables);
-            this.grpDatabaseExplorer.Location = new System.Drawing.Point(3, 0);
+            this.grpDatabaseExplorer.Location = new System.Drawing.Point(4, 0);
+            this.grpDatabaseExplorer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.grpDatabaseExplorer.Name = "grpDatabaseExplorer";
-            this.grpDatabaseExplorer.Size = new System.Drawing.Size(218, 632);
+            this.grpDatabaseExplorer.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpDatabaseExplorer.Size = new System.Drawing.Size(217, 779);
             this.grpDatabaseExplorer.TabIndex = 0;
             this.grpDatabaseExplorer.TabStop = false;
             this.grpDatabaseExplorer.Text = "Database Explorer";
@@ -168,20 +178,30 @@ namespace LiteDBManager
             // 
             this.tabQueries.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabQueries.Location = new System.Drawing.Point(0, 0);
+            this.tabQueries.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabQueries.Name = "tabQueries";
             this.tabQueries.SelectedIndex = 0;
-            this.tabQueries.Size = new System.Drawing.Size(765, 632);
+            this.tabQueries.Size = new System.Drawing.Size(1094, 779);
             this.tabQueries.TabIndex = 0;
+            // 
+            // imgDatabaseExplorer
+            // 
+            this.imgDatabaseExplorer.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgDatabaseExplorer.ImageStream")));
+            this.imgDatabaseExplorer.TransparentColor = System.Drawing.Color.Transparent;
+            this.imgDatabaseExplorer.Images.SetKeyName(0, "database.png");
+            this.imgDatabaseExplorer.Images.SetKeyName(1, "folder.png");
+            this.imgDatabaseExplorer.Images.SetKeyName(2, "table.png");
             // 
             // frmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(990, 656);
+            this.ClientSize = new System.Drawing.Size(1320, 807);
             this.Controls.Add(this.splitContainer);
             this.Controls.Add(this.mnuMain);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mnuMain;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LiteDB Manager";
@@ -213,6 +233,7 @@ namespace LiteDBManager
         private System.Windows.Forms.ToolStripMenuItem mnuCloseCurrentQuery;
         private System.Windows.Forms.ToolStripMenuItem mnuCloseAllButCurrentQuery;
         private System.Windows.Forms.ToolStripMenuItem mnuCloseAllQueries;
+        private System.Windows.Forms.ImageList imgDatabaseExplorer;
     }
 }
 

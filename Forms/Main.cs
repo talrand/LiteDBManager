@@ -102,7 +102,7 @@ namespace LiteDBManager
                 treeTables.Nodes.Clear();
 
                 // Add database node
-                treeTables.Nodes.Add(new TreeNode() { Text = DatabaseName, Tag = DatabaseExplorerNodeTags.Database });
+                treeTables.Nodes.Add(new TreeNode() { Text = DatabaseName, Tag = DatabaseExplorerNodeTags.Database, ImageIndex = 0 });
 
                 if (IsDatabaseReadOnly)
                 {
@@ -128,14 +128,14 @@ namespace LiteDBManager
 
             try
             {
-                systemTreeNode = new TreeNode() { Text = "System", Tag = DatabaseExplorerNodeTags.System };           
+                systemTreeNode = new TreeNode() { Text = "System", Tag = DatabaseExplorerNodeTags.System, ImageIndex = 1, SelectedImageIndex = 1 };           
 
                 // Get all system tables and add them to system node
                 tableNames = GetTableNames(TableType.System);
 
                 foreach (string tableName in tableNames)
                 {
-                    systemTreeNode.Nodes.Add(new TreeNode() { Text = tableName, Tag = DatabaseExplorerNodeTags.SystemTable });
+                    systemTreeNode.Nodes.Add(new TreeNode() { Text = tableName, Tag = DatabaseExplorerNodeTags.SystemTable, ImageIndex = 2, SelectedImageIndex = 2 });
                 }
 
                 // Add system node to database node
@@ -159,7 +159,7 @@ namespace LiteDBManager
                 // Populate treeview
                 foreach (string tableName in tableNames)
                 {
-                    treeTables.Nodes[0].Nodes.Add(new TreeNode() { Text = tableName, Tag = DatabaseExplorerNodeTags.UserTable });
+                    treeTables.Nodes[0].Nodes.Add(new TreeNode() { Text = tableName, Tag = DatabaseExplorerNodeTags.UserTable, ImageIndex = 2, SelectedImageIndex = 2 });
                 }
             }
             catch (Exception ex)
@@ -188,7 +188,7 @@ namespace LiteDBManager
         {
             try
             {
-                if (e.Node.Tag.ToString() == DatabaseExplorerNodeTags.Database)
+                if (e.Node.Tag.ToString() == DatabaseExplorerNodeTags.Database || e.Node.Tag.ToString() == DatabaseExplorerNodeTags.System)
                 {
                     return;
                 }
