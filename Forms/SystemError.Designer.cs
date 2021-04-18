@@ -30,20 +30,21 @@ namespace LiteDBManager.Forms
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSystemError));
-            this.btnOK = new System.Windows.Forms.Button();
+            this.btnClose = new System.Windows.Forms.Button();
             this.txtError = new System.Windows.Forms.TextBox();
+            this.btnClipboard = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // btnOK
+            // btnClose
             // 
-            this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOK.Location = new System.Drawing.Point(426, 272);
-            this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(75, 23);
-            this.btnOK.TabIndex = 0;
-            this.btnOK.Text = "OK";
-            this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClose.Location = new System.Drawing.Point(426, 272);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(75, 23);
+            this.btnClose.TabIndex = 2;
+            this.btnClose.Text = "Close";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // txtError
             // 
@@ -56,15 +57,27 @@ namespace LiteDBManager.Forms
             this.txtError.ReadOnly = true;
             this.txtError.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtError.Size = new System.Drawing.Size(487, 252);
-            this.txtError.TabIndex = 1;
+            this.txtError.TabIndex = 0;
+            // 
+            // btnClipboard
+            // 
+            this.btnClipboard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClipboard.Location = new System.Drawing.Point(314, 272);
+            this.btnClipboard.Name = "btnClipboard";
+            this.btnClipboard.Size = new System.Drawing.Size(106, 23);
+            this.btnClipboard.TabIndex = 1;
+            this.btnClipboard.Text = "Copy to Clipboard";
+            this.btnClipboard.UseVisualStyleBackColor = true;
+            this.btnClipboard.Click += new System.EventHandler(this.btnClipboard_Click);
             // 
             // frmSystemError
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(511, 302);
+            this.Controls.Add(this.btnClipboard);
             this.Controls.Add(this.txtError);
-            this.Controls.Add(this.btnOK);
+            this.Controls.Add(this.btnClose);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -80,7 +93,8 @@ namespace LiteDBManager.Forms
 
         #endregion
 
-        private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.TextBox txtError;
+        private System.Windows.Forms.Button btnClipboard;
     }
 }

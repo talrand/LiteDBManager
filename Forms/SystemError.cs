@@ -30,11 +30,23 @@ namespace LiteDBManager.Forms
             }
         }
 
-        private void btnOK_Click(object sender, EventArgs e)
+        private void btnClose_Click(object sender, EventArgs e)
         {
             try
             {
                 this.Close();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnClipboard_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Clipboard.SetText(txtError.Text);
             }
             catch(Exception ex)
             {
