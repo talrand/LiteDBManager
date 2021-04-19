@@ -143,6 +143,12 @@ namespace LiteDBManager.Classes
         {
             Type valueType = value.GetType();
 
+            // Treat null values as blank strings. This prevents errors when updating cell values to blank in DataGridView
+            if (value == DBNull.Value)
+            {
+                return "''";
+            }
+
             // For strings and dates wrap value in quotes
             if (valueType.Equals(typeof(string)) || valueType.Equals(typeof(DateTime)))
             {
