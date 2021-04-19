@@ -95,7 +95,7 @@ namespace LiteDBManager
             // Add database node
             treeTables.Nodes.Add(new TreeNode() { Text = DatabaseName, Tag = DatabaseExplorerNodeTags.Database, ImageIndex = 0 });
 
-            if (IsDatabaseReadOnly)
+            if (DatabaseReadOnly)
             {
                 treeTables.Nodes[0].Text += " [Read Only]";
             }

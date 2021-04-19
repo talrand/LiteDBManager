@@ -110,7 +110,7 @@ namespace LiteDBManager.Controls
                 lblExecuteResults.Text = $"{result.Count} rows | Elapsed time {result.ElapsedTime}";
 
                 // Database in readonly mode
-                if (IsDatabaseReadOnly)
+                if (DatabaseReadOnly)
                 {
                     dgvResults.ReadOnly = true;
                     return;

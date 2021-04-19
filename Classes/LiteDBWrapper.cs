@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using LiteDB;
 using System.IO;
 using System.Data;
-using static LiteDBManager.Classes.BsonTypeMapper;
 using System.Text;
 using System.Diagnostics;
+using static LiteDBManager.Classes.BsonTypeMapper;
+using static Talrand.Core.ProcessManager;
 
 namespace LiteDBManager.Classes
 {
@@ -27,10 +28,10 @@ namespace LiteDBManager.Classes
 
         private static LiteDatabase _database = null;
         private static string _databaseName = "";
-        private static bool _isDatabaseReadOnly = false;
+        private static bool _databaseReadOnly = false;
 
         public static string DatabaseName { get { return _databaseName; } }
-        public static bool IsDatabaseReadOnly { get { return _isDatabaseReadOnly; } }
+        public static bool DatabaseReadOnly { get { return _databaseReadOnly; } }
 
         public static void OpenDatabase(string fileName, string password, string connectionMethod)
         {
@@ -47,7 +48,6 @@ namespace LiteDBManager.Classes
         private static string BuildConnectionString(string fileName, string password, string connectionMethod)
         {
             var stringBuilder = new StringBuilder();
-            FileInfo fileInfo = null;
 
             stringBuilder.Append($"filename={fileName};");            
 
@@ -56,21 +56,27 @@ namespace LiteDBManager.Classes
                 stringBuilder.Append($"password={password};");
             }
 
-            // Get database file info
-            fileInfo = new FileInfo(fileName);
-            _isDatabaseReadOnly = fileInfo.IsReadOnly;
-
-            if(_isDatabaseReadOnly)
+            if(IsDatabaseReadOnly(fileName) || IsFileLocked(fileName))
             {
-                // Read only databases can only be opened in shared mode
+                _databaseReadOnly = true;
+
+                // Read only & locked databases can only be opened in shared mode
                 stringBuilder.Append($"connection={ConnectionMethod.Shared};readonly=true;");
             }
             else
             {
+                _databaseReadOnly = false;
+
                 stringBuilder.Append($"connection={connectionMethod};");
             }
 
             return stringBuilder.ToString();
+        }
+
+        private static bool IsDatabaseReadOnly(string fileName)
+        {
+            FileInfo fileInfo = new FileInfo(fileName);
+            return fileInfo.IsReadOnly;
         }
 
         public static void CloseDatabase()
