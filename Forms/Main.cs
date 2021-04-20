@@ -266,5 +266,29 @@ namespace LiteDBManager
                 new frmSystemError() { Exception = ex }.ShowDialog();
             }
         }
+
+        private void tabQueries_MouseClick(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                if (e.Button == MouseButtons.Middle)
+                {
+                    // Loop through tabs and find tab that was clicked
+                    for(int i = 0; i < tabQueries.TabPages.Count; i++)
+                    {
+                        if (tabQueries.GetTabRect(i).Contains(e.Location))
+                        {
+                            // Remove tab
+                            tabQueries.TabPages.Remove(tabQueries.TabPages[i]);
+                            break;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                new frmSystemError() { Exception = ex }.ShowDialog();
+            }
+        }
     }
 }
