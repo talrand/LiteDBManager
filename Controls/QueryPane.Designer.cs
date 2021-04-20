@@ -95,8 +95,11 @@ namespace LiteDBManager.Controls
             this.dgvResults.RowHeadersWidth = 51;
             this.dgvResults.Size = new System.Drawing.Size(709, 240);
             this.dgvResults.TabIndex = 0;
+            this.dgvResults.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvResults_CellEndEdit);
             this.dgvResults.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvResults_CellLeave);
             this.dgvResults.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvResults_CellValueChanged);
+            this.dgvResults.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvResults_DataError);
+            this.dgvResults.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvResults_DefaultValuesNeeded);
             this.dgvResults.RowLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvResults_RowLeave);
             this.dgvResults.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgvResults_MouseClick);
             // 
@@ -157,7 +160,7 @@ namespace LiteDBManager.Controls
             this.mnuDeleteRow,
             this.mnuExportResults});
             this.mnuGrid.Name = "mnuGrid";
-            this.mnuGrid.Size = new System.Drawing.Size(181, 70);
+            this.mnuGrid.Size = new System.Drawing.Size(149, 48);
             this.mnuGrid.Opening += new System.ComponentModel.CancelEventHandler(this.mnuGrid_Opening);
             // 
             // mnuDeleteRow
@@ -170,7 +173,7 @@ namespace LiteDBManager.Controls
             // mnuExportResults
             // 
             this.mnuExportResults.Name = "mnuExportResults";
-            this.mnuExportResults.Size = new System.Drawing.Size(180, 22);
+            this.mnuExportResults.Size = new System.Drawing.Size(148, 22);
             this.mnuExportResults.Text = "Export Results";
             this.mnuExportResults.Click += new System.EventHandler(this.mnuExportResults_Click);
             // 
