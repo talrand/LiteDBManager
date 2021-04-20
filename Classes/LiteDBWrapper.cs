@@ -15,7 +15,7 @@ namespace LiteDBManager.Classes
         public struct ConnectionMethod
         {
             public const string Shared = "shared";
-            public const string Exclusive = "exclusive";
+            public const string Direct = "direct";
         }
 
         public struct TableType

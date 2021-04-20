@@ -32,7 +32,7 @@ namespace LiteDBManager.Forms
         private void PopulateConnectionMethods()
         {
             cboMethod.Items.Add(ConnectionMethod.Shared);
-            cboMethod.Items.Add(ConnectionMethod.Exclusive);
+            cboMethod.Items.Add(ConnectionMethod.Direct);
             cboMethod.SelectedIndex = 0;
         }
 
