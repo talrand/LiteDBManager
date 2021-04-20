@@ -2,9 +2,11 @@
 using System.Reflection;
 using System.Windows.Forms;
 using LiteDBManager.Classes;
-using static LiteDBManager.Classes.LiteDBWrapper;
 using System.Drawing;
 using LiteDBManager.Forms;
+using Talrand.Core;
+using System.IO;
+using static LiteDBManager.Classes.LiteDBWrapper;
 
 namespace LiteDBManager.Controls
 {
@@ -294,6 +296,7 @@ namespace LiteDBManager.Controls
                 if (dgvResults.Rows.Count == 0)
                 {
                     mnuDeleteRow.Enabled = false;
+                    mnuExportResults.Enabled = false;
                     return;
                 }
 
@@ -334,6 +337,141 @@ namespace LiteDBManager.Controls
             catch (Exception ex)
             {
                 new frmSystemError() { Exception = ex }.ShowDialog();
+            }
+        }
+
+        private void mnuExportResults_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+
+            try
+            {
+                // Ask user where they would like to save the file
+                saveFileDialog.Filter = "CSV|*.csv|json|*.json";
+                saveFileDialog.ShowDialog();
+
+                if (saveFileDialog.FileName == "")
+                {
+                    return;
+                }
+
+                // Delete existing file
+                if (File.Exists(saveFileDialog.FileName))
+                {
+                    File.Delete(saveFileDialog.FileName);
+                }
+
+                // Perform different export based on file type
+                switch(Path.GetExtension(saveFileDialog.FileName))
+                {
+                    case ".csv":
+                        ExportGridToCSV(saveFileDialog.FileName);
+                        break;
+
+                    case ".json":
+                        ExportGridToJson(saveFileDialog.FileName);
+                        break;
+                }
+            
+                // Open when complete
+                ProcessManager.OpenFile(saveFileDialog.FileName);
+            }           
+            catch (Exception ex)
+            {
+                new frmSystemError() { Exception = ex }.ShowDialog();
+            }
+        }
+
+        private void ExportGridToCSV(string fileName)
+        {
+            CSVWriter csvWriter = new CSVWriter();
+            
+            csvWriter.FileName = fileName;
+
+            // Write headings to csv file
+            foreach (DataGridViewColumn column in dgvResults.Columns)
+            {
+                csvWriter.AddValue(column.Name);
+            }
+
+            csvWriter.WriteLine();
+
+            // Write rows to csv file
+            foreach (DataGridViewRow row in dgvResults.Rows)
+            {
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    if (cell.Value == null)
+                    {
+                        csvWriter.AddValue("");
+                    }
+                    else
+                    {
+                        csvWriter.AddValue(cell.Value.ToString());
+                    }
+                }
+
+                csvWriter.WriteLine();
+            }
+        }
+
+        private void ExportGridToJson(string fileName)
+        {
+            Type fieldType = null;
+            string columnName = "";
+
+            using (var jsonWriter = new JsonWriter())
+            {
+                jsonWriter.WriteArrayStartElement("root");
+
+                // Write each row
+                foreach (DataGridViewRow row in dgvResults.Rows)
+                {
+                    jsonWriter.WriteArrayItemStart();
+
+                    foreach (DataGridViewCell cell in row.Cells)
+                    {
+                        columnName = dgvResults.Columns[cell.ColumnIndex].Name;
+
+                        if (cell.Value == null)
+                        {
+                            jsonWriter.WriteStringElement(columnName, "");
+                        }
+                        else
+                        {
+                            fieldType = cell.Value.GetType();
+
+                            // Write Json element based on value type
+                            if (fieldType.Equals(typeof(string)) || fieldType.Equals(typeof(DateTime)))
+                            {
+                                jsonWriter.WriteStringElement(columnName, cell.Value.ToString());
+                            }
+
+                            if (fieldType.Equals(typeof(bool)))
+                            {
+                                jsonWriter.WriteBooleanElement(columnName, (bool)cell.Value);
+                            }
+
+                            if (fieldType.Equals(typeof(int)) || fieldType.Equals(typeof(byte)))
+                            {
+                                jsonWriter.WriteNumberElement(columnName, (int)cell.Value);
+                            }
+
+                            if (fieldType.Equals(typeof(decimal)) || fieldType.Equals(typeof(double)))
+                            {
+                                jsonWriter.WriteNumberElement(columnName, (decimal)cell.Value);
+                            }
+                        }
+                    }
+
+                    jsonWriter.WriteEndElement(); // item
+                }
+
+                jsonWriter.WriteEndElement(); // root
+
+                // Finally write json to file
+                jsonWriter.WriteToFile(fileName);
+
             }
         }
     }
