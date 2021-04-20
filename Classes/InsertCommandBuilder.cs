@@ -44,6 +44,11 @@ namespace LiteDBManager.Classes
                         jsonWriter.WriteNumberElement(field.Key, (decimal)field.Value);
                         continue;
                     }
+
+                    if (fieldType.Equals(typeof(DBNull)))
+                    {
+                        jsonWriter.WriteStringElement(field.Key, String.Empty);
+                    }
                 }
 
                 jsonWriter.WriteEndElement(); // root
