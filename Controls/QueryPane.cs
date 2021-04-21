@@ -401,7 +401,7 @@ namespace LiteDBManager.Controls
             try
             {
                 // Ask user where they would like to save the file
-                saveFileDialog.Filter = "CSV|*.csv|json|*.json";
+                saveFileDialog.Filter = "CSV|*.csv|json|*.json|XML Document|*.xml";
                 saveFileDialog.ShowDialog();
 
                 if (saveFileDialog.FileName == "")
@@ -416,7 +416,7 @@ namespace LiteDBManager.Controls
                 }
 
                 // Perform different export based on file type
-                switch (Path.GetExtension(saveFileDialog.FileName))
+                switch (Path.GetExtension(saveFileDialog.FileName).ToLower())
                 {
                     case ".csv":
                         dgvResults.ToCSV(saveFileDialog.FileName);
@@ -424,6 +424,10 @@ namespace LiteDBManager.Controls
 
                     case ".json":
                         dgvResults.ToJson(saveFileDialog.FileName);
+                        break;
+
+                    case ".xml":
+                        dgvResults.ToXml(saveFileDialog.FileName);
                         break;
                 }
 
