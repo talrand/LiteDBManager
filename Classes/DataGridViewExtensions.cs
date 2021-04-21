@@ -22,7 +22,13 @@ namespace LiteDBManager.Classes
                 return false;
             }
 
-            return "";
+            // Default string columns to blank string
+            if (columnValueType.Equals(typeof(string)))
+            {
+                return String.Empty;
+            }
+
+            return null;
         }
 
         public static void ToCSV(this DataGridView dataGridView, string fileName)
@@ -42,6 +48,12 @@ namespace LiteDBManager.Classes
             // Write rows to csv file
             foreach (DataGridViewRow row in dataGridView.Rows)
             {
+                // Don't output new row
+                if (row.IsNewRow)
+                {
+                    continue;
+                }
+
                 foreach (DataGridViewCell cell in row.Cells)
                 {
                     if (cell.Value == null)
@@ -70,6 +82,12 @@ namespace LiteDBManager.Classes
                 // Write each row
                 foreach (DataGridViewRow row in dataGridView.Rows)
                 {
+                    // Don't output new row
+                    if (row.IsNewRow)
+                    {
+                        continue;
+                    }
+
                     jsonWriter.WriteArrayItemStart();
 
                     foreach (DataGridViewCell cell in row.Cells)
