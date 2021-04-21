@@ -201,5 +201,10 @@ namespace LiteDBManager.Classes
             return dataTable;
         }
 
+        public static void DeleteTable(string tableName)
+        {
+            _database.Execute($"DROP COLLECTION {tableName}");
+        }
+
     }
 }

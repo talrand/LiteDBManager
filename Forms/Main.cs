@@ -98,6 +98,7 @@ namespace LiteDBManager
             if (DatabaseReadOnly)
             {
                 treeTables.Nodes[0].Text += " [Read Only]";
+                mnuDeleteTable.Enabled = false;
             }
 
             // Add tables
@@ -302,6 +303,7 @@ namespace LiteDBManager
 
                 if (e.Node.Tag.ToString() == DatabaseExplorerNodeTags.UserTable)
                 {
+                    // Need to select node clicked on, otherwise previously selected node is still active
                     treeTables.SelectedNode = e.Node;
                     mnuDatabaseTables.Show(Cursor.Position);
                 }
@@ -318,10 +320,27 @@ namespace LiteDBManager
             try
             {
                 frmTableSchema tableSchema = new frmTableSchema();
-
-
                 tableSchema.TableName = treeTables.SelectedNode.Text;
                 tableSchema.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                new frmSystemError() { Exception = ex }.ShowDialog();
+            }
+        }
+
+        private void mnuDeleteTable_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (MessageBox.Show("Are you sure you want to delete this table?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    // Delete table from database
+                    DeleteTable(treeTables.SelectedNode.Text);
+
+                    // Remove tree node
+                    treeTables.Nodes.Remove(treeTables.SelectedNode);
+                }
             }
             catch (Exception ex)
             {

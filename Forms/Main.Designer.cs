@@ -46,6 +46,7 @@ namespace LiteDBManager
             this.tabQueries = new System.Windows.Forms.TabControl();
             this.mnuDatabaseTables = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.mnuViewTableSchema = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuDeleteTable = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
@@ -194,16 +195,24 @@ namespace LiteDBManager
             // mnuDatabaseTables
             // 
             this.mnuDatabaseTables.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuViewTableSchema});
+            this.mnuViewTableSchema,
+            this.mnuDeleteTable});
             this.mnuDatabaseTables.Name = "mnuDatabaseTables";
-            this.mnuDatabaseTables.Size = new System.Drawing.Size(145, 26);
+            this.mnuDatabaseTables.Size = new System.Drawing.Size(181, 70);
             // 
             // mnuViewTableSchema
             // 
             this.mnuViewTableSchema.Name = "mnuViewTableSchema";
-            this.mnuViewTableSchema.Size = new System.Drawing.Size(144, 22);
+            this.mnuViewTableSchema.Size = new System.Drawing.Size(180, 22);
             this.mnuViewTableSchema.Text = "View Schema";
             this.mnuViewTableSchema.Click += new System.EventHandler(this.mnuViewTableSchema_Click);
+            // 
+            // mnuDeleteTable
+            // 
+            this.mnuDeleteTable.Name = "mnuDeleteTable";
+            this.mnuDeleteTable.Size = new System.Drawing.Size(180, 22);
+            this.mnuDeleteTable.Text = "Delete Table";
+            this.mnuDeleteTable.Click += new System.EventHandler(this.mnuDeleteTable_Click);
             // 
             // frmMain
             // 
@@ -249,6 +258,7 @@ namespace LiteDBManager
         private System.Windows.Forms.ImageList imgDatabaseExplorer;
         private System.Windows.Forms.ContextMenuStrip mnuDatabaseTables;
         private System.Windows.Forms.ToolStripMenuItem mnuViewTableSchema;
+        private System.Windows.Forms.ToolStripMenuItem mnuDeleteTable;
     }
 }
 
