@@ -44,12 +44,15 @@ namespace LiteDBManager
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.grpDatabaseExplorer = new System.Windows.Forms.GroupBox();
             this.tabQueries = new System.Windows.Forms.TabControl();
+            this.mnuDatabaseTables = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.mnuViewTableSchema = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
             this.grpDatabaseExplorer.SuspendLayout();
+            this.mnuDatabaseTables.SuspendLayout();
             this.SuspendLayout();
             // 
             // mnuMain
@@ -135,6 +138,7 @@ namespace LiteDBManager
             this.treeTables.SelectedImageIndex = 0;
             this.treeTables.Size = new System.Drawing.Size(207, 607);
             this.treeTables.TabIndex = 0;
+            this.treeTables.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeTables_NodeMouseClick);
             this.treeTables.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeTables_NodeMouseDoubleClick);
             // 
             // imgDatabaseExplorer
@@ -187,6 +191,20 @@ namespace LiteDBManager
             this.tabQueries.TabIndex = 0;
             this.tabQueries.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tabQueries_MouseClick);
             // 
+            // mnuDatabaseTables
+            // 
+            this.mnuDatabaseTables.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuViewTableSchema});
+            this.mnuDatabaseTables.Name = "mnuDatabaseTables";
+            this.mnuDatabaseTables.Size = new System.Drawing.Size(145, 26);
+            // 
+            // mnuViewTableSchema
+            // 
+            this.mnuViewTableSchema.Name = "mnuViewTableSchema";
+            this.mnuViewTableSchema.Size = new System.Drawing.Size(144, 22);
+            this.mnuViewTableSchema.Text = "View Schema";
+            this.mnuViewTableSchema.Click += new System.EventHandler(this.mnuViewTableSchema_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -208,6 +226,7 @@ namespace LiteDBManager
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
             this.grpDatabaseExplorer.ResumeLayout(false);
+            this.mnuDatabaseTables.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -228,6 +247,8 @@ namespace LiteDBManager
         private System.Windows.Forms.ToolStripMenuItem mnuCloseAllButCurrentQuery;
         private System.Windows.Forms.ToolStripMenuItem mnuCloseAllQueries;
         private System.Windows.Forms.ImageList imgDatabaseExplorer;
+        private System.Windows.Forms.ContextMenuStrip mnuDatabaseTables;
+        private System.Windows.Forms.ToolStripMenuItem mnuViewTableSchema;
     }
 }
 

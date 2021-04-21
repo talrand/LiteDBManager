@@ -290,5 +290,43 @@ namespace LiteDBManager
                 new frmSystemError() { Exception = ex }.ShowDialog();
             }
         }
+
+        private void treeTables_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            try
+            {
+                if (e.Button != MouseButtons.Right )
+                {
+                    return;
+                }
+
+                if (e.Node.Tag.ToString() == DatabaseExplorerNodeTags.UserTable)
+                {
+                    treeTables.SelectedNode = e.Node;
+                    mnuDatabaseTables.Show(Cursor.Position);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                new frmSystemError() { Exception = ex }.ShowDialog();
+            }
+        }
+
+        private void mnuViewTableSchema_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                frmTableSchema tableSchema = new frmTableSchema();
+
+
+                tableSchema.TableName = treeTables.SelectedNode.Text;
+                tableSchema.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                new frmSystemError() { Exception = ex }.ShowDialog();
+            }
+        }
     }
 }

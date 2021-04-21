@@ -7,6 +7,7 @@ using System.Text;
 using System.Diagnostics;
 using static LiteDBManager.Classes.BsonTypeMapper;
 using static Talrand.Core.ProcessManager;
+using System.Linq;
 
 namespace LiteDBManager.Classes
 {
@@ -178,5 +179,27 @@ namespace LiteDBManager.Classes
         {
             return $"{{\"$oid\": \"{id}\"}}";
         }
+
+        public static DataTable GetTableSchema(string tableName)
+        {
+            DataTable dataTable = new DataTable();
+
+            // Get first row in passed table
+            var bsonDocument = _database.GetCollection(tableName).FindAll().First();
+
+            // Initialise return table
+            dataTable.Columns.Add("Field");
+            dataTable.Columns.Add("Type");
+            
+            // Add rows to return table
+            foreach (var key in bsonDocument.Keys)
+            {
+                dataTable.Rows.Add(key, bsonDocument[key].Type.ToString());
+                dataTable.AcceptChanges();
+            }
+
+            return dataTable;
+        }
+
     }
 }
