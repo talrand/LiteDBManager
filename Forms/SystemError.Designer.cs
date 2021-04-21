@@ -41,7 +41,7 @@ namespace LiteDBManager.Forms
             this.btnClose.Location = new System.Drawing.Point(426, 272);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
-            this.btnClose.TabIndex = 2;
+            this.btnClose.TabIndex = 0;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
@@ -57,7 +57,7 @@ namespace LiteDBManager.Forms
             this.txtError.ReadOnly = true;
             this.txtError.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtError.Size = new System.Drawing.Size(487, 252);
-            this.txtError.TabIndex = 0;
+            this.txtError.TabIndex = 2;
             // 
             // btnClipboard
             // 
