@@ -47,6 +47,9 @@ namespace LiteDBManager
             this.mnuDatabaseTables = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.mnuViewTableSchema = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuDeleteTable = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuDatabase = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.mnuDatabaseDisconnect = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuDatabaseRebuild = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
@@ -54,6 +57,7 @@ namespace LiteDBManager
             this.splitContainer.SuspendLayout();
             this.grpDatabaseExplorer.SuspendLayout();
             this.mnuDatabaseTables.SuspendLayout();
+            this.mnuDatabase.SuspendLayout();
             this.SuspendLayout();
             // 
             // mnuMain
@@ -137,7 +141,8 @@ namespace LiteDBManager
             this.treeTables.Location = new System.Drawing.Point(4, 19);
             this.treeTables.Name = "treeTables";
             this.treeTables.SelectedImageIndex = 0;
-            this.treeTables.Size = new System.Drawing.Size(207, 607);
+            this.treeTables.ShowNodeToolTips = true;
+            this.treeTables.Size = new System.Drawing.Size(236, 607);
             this.treeTables.TabIndex = 0;
             this.treeTables.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeTables_NodeMouseClick);
             this.treeTables.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeTables_NodeMouseDoubleClick);
@@ -166,7 +171,7 @@ namespace LiteDBManager
             // 
             this.splitContainer.Panel2.Controls.Add(this.tabQueries);
             this.splitContainer.Size = new System.Drawing.Size(990, 632);
-            this.splitContainer.SplitterDistance = 221;
+            this.splitContainer.SplitterDistance = 250;
             this.splitContainer.TabIndex = 3;
             // 
             // grpDatabaseExplorer
@@ -177,7 +182,7 @@ namespace LiteDBManager
             this.grpDatabaseExplorer.Controls.Add(this.treeTables);
             this.grpDatabaseExplorer.Location = new System.Drawing.Point(3, 0);
             this.grpDatabaseExplorer.Name = "grpDatabaseExplorer";
-            this.grpDatabaseExplorer.Size = new System.Drawing.Size(218, 632);
+            this.grpDatabaseExplorer.Size = new System.Drawing.Size(247, 632);
             this.grpDatabaseExplorer.TabIndex = 0;
             this.grpDatabaseExplorer.TabStop = false;
             this.grpDatabaseExplorer.Text = "Database Explorer";
@@ -188,7 +193,7 @@ namespace LiteDBManager
             this.tabQueries.Location = new System.Drawing.Point(0, 0);
             this.tabQueries.Name = "tabQueries";
             this.tabQueries.SelectedIndex = 0;
-            this.tabQueries.Size = new System.Drawing.Size(765, 632);
+            this.tabQueries.Size = new System.Drawing.Size(736, 632);
             this.tabQueries.TabIndex = 0;
             this.tabQueries.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tabQueries_MouseClick);
             // 
@@ -214,6 +219,28 @@ namespace LiteDBManager
             this.mnuDeleteTable.Text = "Delete Table";
             this.mnuDeleteTable.Click += new System.EventHandler(this.mnuDeleteTable_Click);
             // 
+            // mnuDatabase
+            // 
+            this.mnuDatabase.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuDatabaseDisconnect,
+            this.mnuDatabaseRebuild});
+            this.mnuDatabase.Name = "mnuDatabaseTables";
+            this.mnuDatabase.Size = new System.Drawing.Size(134, 48);
+            // 
+            // mnuDatabaseDisconnect
+            // 
+            this.mnuDatabaseDisconnect.Name = "mnuDatabaseDisconnect";
+            this.mnuDatabaseDisconnect.Size = new System.Drawing.Size(180, 22);
+            this.mnuDatabaseDisconnect.Text = "Disconnect";
+            this.mnuDatabaseDisconnect.Click += new System.EventHandler(this.mnuDatabaseDisconnect_Click);
+            // 
+            // mnuDatabaseRebuild
+            // 
+            this.mnuDatabaseRebuild.Name = "mnuDatabaseRebuild";
+            this.mnuDatabaseRebuild.Size = new System.Drawing.Size(180, 22);
+            this.mnuDatabaseRebuild.Text = "Rebuild";
+            this.mnuDatabaseRebuild.Click += new System.EventHandler(this.mnuDatabaseRebuild_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -236,6 +263,7 @@ namespace LiteDBManager
             this.splitContainer.ResumeLayout(false);
             this.grpDatabaseExplorer.ResumeLayout(false);
             this.mnuDatabaseTables.ResumeLayout(false);
+            this.mnuDatabase.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -259,6 +287,9 @@ namespace LiteDBManager
         private System.Windows.Forms.ContextMenuStrip mnuDatabaseTables;
         private System.Windows.Forms.ToolStripMenuItem mnuViewTableSchema;
         private System.Windows.Forms.ToolStripMenuItem mnuDeleteTable;
+        private System.Windows.Forms.ContextMenuStrip mnuDatabase;
+        private System.Windows.Forms.ToolStripMenuItem mnuDatabaseDisconnect;
+        private System.Windows.Forms.ToolStripMenuItem mnuDatabaseRebuild;
     }
 }
 

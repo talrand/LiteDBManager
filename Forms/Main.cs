@@ -93,12 +93,13 @@ namespace LiteDBManager
             treeTables.Nodes.Clear();
 
             // Add database node
-            treeTables.Nodes.Add(new TreeNode() { Text = DatabaseName, Tag = DatabaseExplorerNodeTags.Database, ImageIndex = 0 });
+            treeTables.Nodes.Add(new TreeNode() { Text = DatabaseName, Tag = DatabaseExplorerNodeTags.Database, ImageIndex = 0, ToolTipText = DatabaseFileName, ContextMenuStrip = mnuDatabase });
 
             if (DatabaseReadOnly)
             {
                 treeTables.Nodes[0].Text += " [Read Only]";
                 mnuDeleteTable.Enabled = false;
+                mnuDatabaseRebuild.Enabled = false;
             }
 
             // Add tables
@@ -145,16 +146,34 @@ namespace LiteDBManager
         {
             try
             {
-                CloseDatabase();
-                ClearControls();
-                mnuDisconnect.Enabled = false;
-                mnuNewQuery.Enabled = false;
-                mnuQueries.Enabled = false;
+                Disconnect();
             }
             catch (Exception ex)
             {
                 new frmSystemError() { Exception = ex }.ShowDialog();
             }
+        }
+
+        private void mnuDatabaseDisconnect_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Disconnect();
+            }
+            catch (Exception ex)
+            {
+                new frmSystemError() { Exception = ex }.ShowDialog();
+            }
+        }
+
+
+        private void Disconnect()
+        {
+            CloseDatabase();
+            ClearControls();
+            mnuDisconnect.Enabled = false;
+            mnuNewQuery.Enabled = false;
+            mnuQueries.Enabled = false;
         }
 
         private void treeTables_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
@@ -340,6 +359,22 @@ namespace LiteDBManager
 
                     // Remove tree node
                     treeTables.Nodes.Remove(treeTables.SelectedNode);
+                }
+            }
+            catch (Exception ex)
+            {
+                new frmSystemError() { Exception = ex }.ShowDialog();
+            }
+        }
+
+        private void mnuDatabaseRebuild_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (MessageBox.Show("Are you sure you want to rebuild the database?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    RebuildDatabase();
+                    PopulateDatabaseExplorer();
                 }
             }
             catch (Exception ex)

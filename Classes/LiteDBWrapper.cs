@@ -30,9 +30,11 @@ namespace LiteDBManager.Classes
 
         private static LiteDatabase _database = null;
         private static string _databaseName = "";
+        private static string _databaseFileName = "";
         private static bool _databaseReadOnly = false;
 
         public static string DatabaseName { get { return _databaseName; } }
+        public static string DatabaseFileName { get { return _databaseFileName; } }
         public static bool DatabaseReadOnly { get { return _databaseReadOnly; } }
 
         public static void OpenDatabase(string fileName, string password, string connectionMethod)
@@ -40,8 +42,9 @@ namespace LiteDBManager.Classes
             // Connect to database - this will create it if it doesn't exist
             _database = new LiteDatabase(BuildConnectionString(fileName, password, connectionMethod));
             
-            // Store database name for display in database explorer
+            // Store database name + path for display in database explorer
             _databaseName = Path.GetFileName(fileName);
+            _databaseFileName = fileName;
 
             // Store database file in recent files log
             RecentFiles.Write(fileName);
@@ -85,6 +88,8 @@ namespace LiteDBManager.Classes
         {
             _database?.Dispose();
             _database = null;
+            _databaseName = "";
+            _databaseFileName = "";
         }
 
         public static List<string> GetTableNames(string tableType)
@@ -217,6 +222,11 @@ namespace LiteDBManager.Classes
         public static void DeleteTable(string tableName)
         {
             ExecuteNonQuery($"DROP COLLECTION {tableName}");
+        }
+
+        public static void RebuildDatabase()
+        {
+            _database.Rebuild();
         }
     }
 }
