@@ -198,19 +198,19 @@ namespace LiteDBManager
             this.mnuViewTableSchema,
             this.mnuDeleteTable});
             this.mnuDatabaseTables.Name = "mnuDatabaseTables";
-            this.mnuDatabaseTables.Size = new System.Drawing.Size(181, 70);
+            this.mnuDatabaseTables.Size = new System.Drawing.Size(145, 48);
             // 
             // mnuViewTableSchema
             // 
             this.mnuViewTableSchema.Name = "mnuViewTableSchema";
-            this.mnuViewTableSchema.Size = new System.Drawing.Size(180, 22);
+            this.mnuViewTableSchema.Size = new System.Drawing.Size(144, 22);
             this.mnuViewTableSchema.Text = "View Schema";
             this.mnuViewTableSchema.Click += new System.EventHandler(this.mnuViewTableSchema_Click);
             // 
             // mnuDeleteTable
             // 
             this.mnuDeleteTable.Name = "mnuDeleteTable";
-            this.mnuDeleteTable.Size = new System.Drawing.Size(180, 22);
+            this.mnuDeleteTable.Size = new System.Drawing.Size(144, 22);
             this.mnuDeleteTable.Text = "Delete Table";
             this.mnuDeleteTable.Click += new System.EventHandler(this.mnuDeleteTable_Click);
             // 

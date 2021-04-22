@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>database2.ico</ApplicationIcon>
+    <ApplicationIcon>LiteDBManager.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="LiteDB">
@@ -135,7 +135,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="database2.ico" />
+    <Content Include="LiteDBManager.ico" />
     <Content Include="Resources\table.png" />
     <None Include="Resources\folder.png" />
     <None Include="Resources\database.png" />
