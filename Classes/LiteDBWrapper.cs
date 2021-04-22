@@ -7,6 +7,7 @@ using System.Text;
 using System.Diagnostics;
 using static LiteDBManager.Classes.BsonTypeMapper;
 using static Talrand.Core.ProcessManager;
+using static Talrand.Core.Extensions;
 using System.Linq;
 
 namespace LiteDBManager.Classes
@@ -110,7 +111,7 @@ namespace LiteDBManager.Classes
             DataTable dataTable = new DataTable();
             DataRow dataRow = null;
             Stopwatch stopwatch = new Stopwatch();
-
+   
             // Execute query
             stopwatch.Start();
             var reader = _database.Execute(query);
@@ -146,6 +147,28 @@ namespace LiteDBManager.Classes
             return new ExecuteResult(dataTable, dataTable.Rows.Count, stopwatch.Elapsed);
         }
 
+        public static ExecuteResult ExecuteNonQuery(string command)
+        {
+            Stopwatch stopwatch = new Stopwatch();
+            int resultCount = 0;
+
+            stopwatch.Start();
+            var reader = _database.Execute(command);
+            stopwatch.Stop();
+
+            // Convert booleans to byte
+            if (reader.Current.RawValue.GetType().Equals(typeof(bool)))
+            {
+                resultCount = ((bool)reader.Current.RawValue).ToByte();
+            }
+            else
+            {
+                resultCount = (int)reader.Current.RawValue;
+            }
+
+            return new ExecuteResult(null, resultCount, stopwatch.Elapsed);
+        }
+
         public static string FormatFieldValue(object value)
         {
             Type valueType = value.GetType();
@@ -163,16 +186,6 @@ namespace LiteDBManager.Classes
             }
 
             return value.ToString();
-        }
-
-        public static ExecuteResult ExecuteNonQuery(string command)
-        {
-            Stopwatch stopwatch = new Stopwatch();
-
-            stopwatch.Start();
-            var reader = _database.Execute(command);
-            stopwatch.Stop();
-            return new ExecuteResult(null, (int)reader.Current.RawValue, stopwatch.Elapsed);
         }
 
         public static string FormatIdFieldForWhereClause(string id)
@@ -203,8 +216,7 @@ namespace LiteDBManager.Classes
 
         public static void DeleteTable(string tableName)
         {
-            _database.Execute($"DROP COLLECTION {tableName}");
+            ExecuteNonQuery($"DROP COLLECTION {tableName}");
         }
-
     }
 }
