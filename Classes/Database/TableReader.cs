@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using LiteDB;
-using static LiteDBManager.Classes.LiteDBWrapper;
 using System.Linq;
 using System.Data;
 
-namespace LiteDBManager.Classes
+namespace LiteDBManager.Classes.Database
 {
     public class TableReader
     {
         public List<string> ReadNames(string tableType)
         {
             var tableNames = new List<string>();
-            var reader = Database.Execute($"SELECT name from $cols WHERE Type = '{tableType}'");
+            var reader = LiteDBWrapper.Database.Execute($"SELECT name from $cols WHERE Type = '{tableType}'");
 
             while (reader.Read())
             {
@@ -33,7 +32,7 @@ namespace LiteDBManager.Classes
             DataTable dataTable = new DataTable();
 
             // Get first row in passed table
-            var bsonDocument = Database.GetCollection(tableName).FindAll().First();
+            var bsonDocument = LiteDBWrapper.Database.GetCollection(tableName).FindAll().First();
 
             // Initialise return table
             dataTable.Columns.Add("Field");

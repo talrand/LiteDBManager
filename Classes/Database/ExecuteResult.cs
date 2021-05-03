@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace LiteDBManager.Classes
+namespace LiteDBManager.Classes.Database
 {
     public class ExecuteResult
     {

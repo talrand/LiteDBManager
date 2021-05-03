@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace LiteDBManager.Classes
+namespace LiteDBManager.Classes.Database
 {
     public static class RecentFiles
     {

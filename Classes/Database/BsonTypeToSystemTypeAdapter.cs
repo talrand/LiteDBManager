@@ -1,7 +1,7 @@
 ﻿using System;
 using LiteDB;
 
-namespace LiteDBManager.Classes
+namespace LiteDBManager.Classes.Database
 {
     /// <summary>
     /// Maps BsonType to SystemType (see https://www.litedb.org/docs/data-structure/)

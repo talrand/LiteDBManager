@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using static Talrand.Core.Extensions;
-using static LiteDBManager.Classes.LiteDBWrapper;
+using static LiteDBManager.Classes.Database.LiteDBWrapper;
 
-namespace LiteDBManager.Classes
+namespace LiteDBManager.Classes.Database
 {
     public class UpdateCommandBuilder : CommandBuilder
     {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Data;
 using System.Diagnostics;
-using static LiteDBManager.Classes.LiteDBWrapper;
+using LiteDBManager.Classes;
 using static Talrand.Core.Extensions;
 
-namespace LiteDBManager.Classes
+namespace LiteDBManager.Classes.Database
 {
     public class CommandExecutor
     {
@@ -16,7 +16,7 @@ namespace LiteDBManager.Classes
 
             // Execute query
             stopwatch.Start();
-            var reader = Database.Execute(query);
+            var reader = LiteDBWrapper.Database.Execute(query);
 
             dataTable = adapter.Convert(reader);
 
@@ -31,7 +31,7 @@ namespace LiteDBManager.Classes
             int resultCount = 0;
 
             stopwatch.Start();
-            var reader = Database.Execute(command);
+            var reader = LiteDBWrapper.Database.Execute(command);
             stopwatch.Stop();
 
             // Convert booleans to byte

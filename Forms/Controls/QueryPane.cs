@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Reflection;
 using System.Windows.Forms;
-using LiteDBManager.Classes;
+using LiteDBManager.Classes.Database;
 using System.Drawing;
 using LiteDBManager.Forms;
 using Talrand.Core;
 using System.IO;
-using static LiteDBManager.Classes.LiteDBWrapper;
+using static LiteDBManager.Classes.Database.LiteDBWrapper;
 using static LiteDBManager.Classes.DataGridViewExtensions;
 
 namespace LiteDBManager.Controls

@@ -2,7 +2,7 @@
 using System.Data;
 using LiteDB;
 
-namespace LiteDBManager.Classes
+namespace LiteDBManager.Classes.Database
 {
     public class BsonDataReaderToDataTableAdapter
     {

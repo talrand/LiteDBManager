@@ -55,21 +55,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\BsonDataReaderToDataTableAdapter.cs" />
-    <Compile Include="Classes\CommandBuilder.cs" />
-    <Compile Include="Classes\CommandExecutor.cs" />
+    <Compile Include="Classes\Database\BsonDataReaderToDataTableAdapter.cs" />
+    <Compile Include="Classes\Database\CommandBuilder.cs" />
+    <Compile Include="Classes\Database\CommandExecutor.cs" />
+    <Compile Include="Classes\Database\DatabaseConnector.cs" />
+    <Compile Include="Classes\Database\DatabaseInfo.cs" />
     <Compile Include="Classes\DataGridViewExtensions.cs" />
-    <Compile Include="Classes\LiteDBWrapper.cs" />
-    <Compile Include="Classes\BsonTypeToSystemTypeAdapter.cs" />
-    <Compile Include="Classes\InsertCommandBuilder.cs" />
-    <Compile Include="Classes\ExecuteResult.cs" />
-    <Compile Include="Classes\RecentFiles.cs" />
-    <Compile Include="Classes\TableReader.cs" />
-    <Compile Include="Classes\UpdateCommandBuilder.cs" />
-    <Compile Include="Controls\QueryPane.cs">
+    <Compile Include="Classes\Database\LiteDBWrapper.cs" />
+    <Compile Include="Classes\Database\BsonTypeToSystemTypeAdapter.cs" />
+    <Compile Include="Classes\Database\InsertCommandBuilder.cs" />
+    <Compile Include="Classes\Database\ExecuteResult.cs" />
+    <Compile Include="Classes\Database\RecentFiles.cs" />
+    <Compile Include="Classes\Database\TableReader.cs" />
+    <Compile Include="Classes\Database\UpdateCommandBuilder.cs" />
+    <Compile Include="Forms\Controls\QueryPane.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\QueryPane.Designer.cs">
+    <Compile Include="Forms\Controls\QueryPane.Designer.cs">
       <DependentUpon>QueryPane.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\DatabaseConnection.cs">
@@ -98,7 +100,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Controls\QueryPane.resx">
+    <EmbeddedResource Include="Forms\Controls\QueryPane.resx">
       <DependentUpon>QueryPane.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DatabaseConnection.resx">
@@ -136,7 +138,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Classes\Export\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="LiteDBManager.ico" />
     <Content Include="Resources\table.png" />

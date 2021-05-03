@@ -2,7 +2,7 @@
 using System.Text;
 using Talrand.Core;
 
-namespace LiteDBManager.Classes
+namespace LiteDBManager.Classes.Database
 {
     public class InsertCommandBuilder : CommandBuilder
     {

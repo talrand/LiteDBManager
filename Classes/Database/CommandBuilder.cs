@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace LiteDBManager.Classes
+namespace LiteDBManager.Classes.Database
 {
     public abstract class CommandBuilder
     {

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using static LiteDBManager.Classes.LiteDBWrapper;
-using LiteDBManager.Classes;
+using LiteDBManager.Classes.Database;
 
 namespace LiteDBManager.Forms
 {

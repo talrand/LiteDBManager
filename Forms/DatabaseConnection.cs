@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
-using static LiteDBManager.Classes.LiteDBWrapper;
-using LiteDBManager.Classes;
+using static LiteDBManager.Classes.Database.LiteDBWrapper;
+using LiteDBManager.Classes.Database;
 
 namespace LiteDBManager.Forms
 {
@@ -70,9 +70,13 @@ namespace LiteDBManager.Forms
 
         private void btnConnect_Click(object sender, EventArgs e)
         {
+            DatabaseConnector databaseConnector = new DatabaseConnector();
+            DatabaseInfo databaseInfo = null;
+
             try
             {
-                OpenDatabase(cboFileName.Text, txtPassword.Text, cboMethod.SelectedItem.ToString());
+                databaseInfo = databaseConnector.Connect(cboFileName.Text, txtPassword.Text, cboMethod.SelectedItem.ToString());
+                SetDatabaseInfo(databaseInfo);
                 _connected = true;
                 this.Close();
             }

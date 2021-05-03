@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using LiteDBManager.Classes;
+using LiteDBManager.Classes.Database;
 using LiteDBManager.Forms;
 using LiteDBManager.Controls;
-using static LiteDBManager.Classes.LiteDBWrapper;
+using static LiteDBManager.Classes.Database.LiteDBWrapper;
 
 namespace LiteDBManager
 {
