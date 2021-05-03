@@ -68,6 +68,11 @@
     <Compile Include="Classes\Database\RecentFiles.cs" />
     <Compile Include="Classes\Database\TableReader.cs" />
     <Compile Include="Classes\Database\UpdateCommandBuilder.cs" />
+    <Compile Include="Classes\Exporters\CsvDataExporter.cs" />
+    <Compile Include="Classes\Exporters\DataExporterFactory.cs" />
+    <Compile Include="Classes\Exporters\IDataExporter.cs" />
+    <Compile Include="Classes\Exporters\JsonDataExporter.cs" />
+    <Compile Include="Classes\Exporters\XmlDataExporter.cs" />
     <Compile Include="Forms\Controls\QueryPane.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -138,9 +143,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Classes\Export\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="LiteDBManager.ico" />
     <Content Include="Resources\table.png" />

@@ -8,6 +8,7 @@ using Talrand.Core;
 using System.IO;
 using static LiteDBManager.Classes.Database.LiteDBWrapper;
 using static LiteDBManager.Classes.DataGridViewExtensions;
+using LiteDBManager.Classes.Exporters;
 
 namespace LiteDBManager.Controls
 {
@@ -398,6 +399,7 @@ namespace LiteDBManager.Controls
         private void mnuExportResults_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
+            IDataExporter dataExporter = null;
 
             try
             {
@@ -416,21 +418,8 @@ namespace LiteDBManager.Controls
                     File.Delete(saveFileDialog.FileName);
                 }
 
-                // Perform different export based on file type
-                switch (Path.GetExtension(saveFileDialog.FileName).ToLower())
-                {
-                    case ".csv":
-                        dgvResults.ToCSV(saveFileDialog.FileName);
-                        break;
-
-                    case ".json":
-                        dgvResults.ToJson(saveFileDialog.FileName);
-                        break;
-
-                    case ".xml":
-                        dgvResults.ToXml(saveFileDialog.FileName);
-                        break;
-                }
+                dataExporter = DataExporterFactory.Create(saveFileDialog.FileName, dgvResults);
+                dataExporter.Run();
 
                 // Open when complete
                 ProcessManager.OpenFile(saveFileDialog.FileName);
