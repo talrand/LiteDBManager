@@ -14,6 +14,7 @@ namespace LiteDBManager.Controls
     public partial class QueryPane : UserControl
     {
         private string _currentTable = "";
+        private readonly CommandExecutor _commandExecutor = new CommandExecutor();
 
         public QueryPane()
         {
@@ -104,7 +105,7 @@ namespace LiteDBManager.Controls
             ExecuteResult result = null;
 
             dgvResults.DataSource = null;
-            result = ExecuteQuery(txtQuery.Text);
+            result = _commandExecutor.ExecuteQuery(txtQuery.Text);
 
             // Update grid data
             dgvResults.DataSource = result.Data;
@@ -140,7 +141,7 @@ namespace LiteDBManager.Controls
                 txtNonQueryResult.Visible = true;
                 panQueryResults.Visible = false;
 
-                executeResult = ExecuteNonQuery(txtQuery.Text);
+                executeResult = _commandExecutor.ExecuteNonQuery(txtQuery.Text);
 
                 // Display results
                 txtNonQueryResult.ForeColor = Color.Black;
@@ -199,7 +200,7 @@ namespace LiteDBManager.Controls
                 }
 
                 // Run insert command
-                ExecuteNonQuery(insertCommand.ToString());
+                _commandExecutor.ExecuteNonQuery(insertCommand.ToString());
 
                 // Re-run query command - needs to use BeginInvoke call to avoid reentrant errors
                 BeginInvoke(new MethodInvoker(PopulateGridFromSelectQuery));
@@ -272,7 +273,7 @@ namespace LiteDBManager.Controls
                 updateCommand.AddField(columnName, cell.Value);
                 updateCommand.SetWhereClause($"_id={FormatIdFieldForWhereClause(id)}");
 
-                ExecuteNonQuery(updateCommand.ToString());
+                _commandExecutor.ExecuteNonQuery(updateCommand.ToString());
             }
             catch (Exception ex)
             {
@@ -384,7 +385,7 @@ namespace LiteDBManager.Controls
                 if (MessageBox.Show("Are you sure you want to delete this row?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     // Delete row and repopulate grid
-                    ExecuteNonQuery($"DELETE {_currentTable} WHERE _id = {FormatIdFieldForWhereClause(id)}");
+                    _commandExecutor.ExecuteNonQuery($"DELETE {_currentTable} WHERE _id = {FormatIdFieldForWhereClause(id)}");
                     PopulateGridFromSelectQuery();
                 }
             }

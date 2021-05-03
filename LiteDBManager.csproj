@@ -55,13 +55,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\BsonDataReaderToDataTableAdapter.cs" />
     <Compile Include="Classes\CommandBuilder.cs" />
+    <Compile Include="Classes\CommandExecutor.cs" />
     <Compile Include="Classes\DataGridViewExtensions.cs" />
     <Compile Include="Classes\LiteDBWrapper.cs" />
-    <Compile Include="Classes\BsonTypeMapper.cs" />
+    <Compile Include="Classes\BsonTypeToSystemTypeAdapter.cs" />
     <Compile Include="Classes\InsertCommandBuilder.cs" />
     <Compile Include="Classes\ExecuteResult.cs" />
     <Compile Include="Classes\RecentFiles.cs" />
+    <Compile Include="Classes\TableReader.cs" />
     <Compile Include="Classes\UpdateCommandBuilder.cs" />
     <Compile Include="Controls\QueryPane.cs">
       <SubType>UserControl</SubType>

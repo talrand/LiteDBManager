@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using static LiteDBManager.Classes.LiteDBWrapper;
+using LiteDBManager.Classes;
 
 namespace LiteDBManager.Forms
 {
@@ -29,9 +30,11 @@ namespace LiteDBManager.Forms
 
         private void frmTableSchema_Shown(object sender, EventArgs e)
         {
+            TableReader tableReader = new TableReader();
+
             try
             {
-                dgvSchema.DataSource = GetTableSchema(_tableName);
+                dgvSchema.DataSource = tableReader.ReadSchema(_tableName);
             }
             catch (Exception ex)
             {

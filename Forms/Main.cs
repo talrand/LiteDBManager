@@ -111,13 +111,14 @@ namespace LiteDBManager
 
         private void AddSystemTablesToDatabaseExplorer()
         {
+            TableReader tableReader = new TableReader();
             List<string> tableNames = null;
             TreeNode systemTreeNode = null;
 
             systemTreeNode = new TreeNode() { Text = "System", Tag = DatabaseExplorerNodeTags.System, ImageIndex = 1, SelectedImageIndex = 1 };
 
             // Get all system tables and add them to system node
-            tableNames = GetTableNames(TableType.System);
+            tableNames = tableReader.ReadNames(TableType.System);
 
             foreach (string tableName in tableNames)
             {
@@ -130,10 +131,11 @@ namespace LiteDBManager
 
         private void AddUserTablesToDatabaseExplorer()
         {
+            TableReader tableReader = new TableReader();
             List<string> tableNames = null;
 
             // Get names of all user defined tables
-            tableNames = GetTableNames(TableType.User);
+            tableNames = tableReader.ReadNames(TableType.User);
 
             // Populate treeview
             foreach (string tableName in tableNames)
@@ -294,7 +296,7 @@ namespace LiteDBManager
                 if (e.Button == MouseButtons.Middle)
                 {
                     // Loop through tabs and find tab that was clicked
-                    for(int i = 0; i < tabQueries.TabPages.Count; i++)
+                    for (int i = 0; i < tabQueries.TabPages.Count; i++)
                     {
                         if (tabQueries.GetTabRect(i).Contains(e.Location))
                         {
@@ -315,7 +317,7 @@ namespace LiteDBManager
         {
             try
             {
-                if (e.Button != MouseButtons.Right )
+                if (e.Button != MouseButtons.Right)
                 {
                     return;
                 }
@@ -350,12 +352,14 @@ namespace LiteDBManager
 
         private void mnuDeleteTable_Click(object sender, EventArgs e)
         {
+            CommandExecutor commandExecutor = new CommandExecutor();
+
             try
             {
                 if (MessageBox.Show("Are you sure you want to delete this table?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     // Delete table from database
-                    DeleteTable(treeTables.SelectedNode.Text);
+                    commandExecutor.DeleteTable(treeTables.SelectedNode.Text);
 
                     // Remove tree node
                     treeTables.Nodes.Remove(treeTables.SelectedNode);

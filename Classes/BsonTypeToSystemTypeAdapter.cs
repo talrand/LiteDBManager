@@ -6,7 +6,7 @@ namespace LiteDBManager.Classes
     /// <summary>
     /// Maps BsonType to SystemType (see https://www.litedb.org/docs/data-structure/)
     /// </summary>
-    public static class BsonTypeMapper
+    public static class BsonTypeToSystemTypeAdapter
     {
         public static Type ToSystemType(this BsonType type)
         {
