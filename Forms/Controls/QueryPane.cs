@@ -175,7 +175,7 @@ namespace LiteDBManager.Controls
                 }
 
                 // Don't insert blank rows
-                if (IsGridRowBlank(dgvResults.Rows[e.RowIndex]) == true)
+                if (IsGridRowBlank(dgvResults.Rows[e.RowIndex]) || HasGridRowOnlyDefaultValues(dgvResults.Rows[e.RowIndex]))
                 {
                     return;
                 }
@@ -224,6 +224,27 @@ namespace LiteDBManager.Controls
             }
 
             // All cells are blank
+            return true;
+        }
+
+        private bool HasGridRowOnlyDefaultValues(DataGridViewRow row)
+        {
+            foreach (DataGridViewCell cell in row.Cells)
+            {
+                // Ignore null values
+                if (cell.Value.GetType().Equals(typeof(DBNull)))
+                {
+                    continue;
+                }
+
+                // As soon as a cell contains a non-default value return false
+                if (cell.Value.Equals(cell.DefaultValue()) == false)
+                {
+                    return false;
+                }
+            }
+
+            // All cells are default values
             return true;
         }
 

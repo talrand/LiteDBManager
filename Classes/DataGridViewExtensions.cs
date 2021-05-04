@@ -29,7 +29,7 @@ namespace LiteDBManager.Classes
                 return String.Empty;
             }
 
-            return null;
+            return DBNull.Value;
         }
     }
 }
