@@ -168,6 +168,11 @@ namespace LiteDBManager.Controls
                     return;
                 }
 
+                if (!dgvResults.Columns.Contains("_id"))
+                {
+                    return;
+                }
+
                 // Ignore existing rows
                 if (dgvResults.Rows[e.RowIndex].Cells["_id"].Value.ToString() != "")
                 {
