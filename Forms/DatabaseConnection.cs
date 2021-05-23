@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.IO;
 using static LiteDBManager.Classes.Database.LiteDBWrapper;
 using LiteDBManager.Classes.Database;
 
@@ -79,6 +80,10 @@ namespace LiteDBManager.Forms
                 SetDatabaseInfo(databaseInfo);
                 _connected = true;
                 this.Close();
+            }
+            catch (FileLoadException fileEx)
+            {
+                MessageBox.Show(fileEx.Message, "File in use", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {

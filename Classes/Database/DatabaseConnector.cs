@@ -13,7 +13,12 @@ namespace LiteDBManager.Classes.Database
         {
             DatabaseInfo databaseInfo = new DatabaseInfo();
 
-            if (IsDatabaseReadOnly(fileName)||IsFileLocked(fileName))
+            if (IsFileLocked(fileName))
+            {
+                throw new FileLoadException("File is in use by another process");
+            }
+
+            if (IsDatabaseReadOnly(fileName))
             {
                 databaseInfo.IsReadOnly = true;
             }
