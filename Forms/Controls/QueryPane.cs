@@ -16,6 +16,7 @@ namespace LiteDBManager.Controls
     {
         private string _currentTable = "";
         private readonly CommandExecutor _commandExecutor = new CommandExecutor();
+        private bool _repositionToEndOfGrid = false;
 
         public QueryPane()
         {
@@ -131,6 +132,21 @@ namespace LiteDBManager.Controls
             // Stop users editing internal _id column
             dgvResults.Columns["_id"].ReadOnly = true;
             dgvResults.ReadOnly = false;
+
+            if (_repositionToEndOfGrid)
+            {
+                SelectLastGridRow();
+                _repositionToEndOfGrid = false;
+            }
+        }
+
+        private void SelectLastGridRow()
+        {
+            int rowIndex = dgvResults.Rows.Count - 2;
+
+            dgvResults.ClearSelection();
+            dgvResults.CurrentCell = dgvResults.Rows[rowIndex].Cells[0];
+            dgvResults.Rows[rowIndex].Selected = true;
         }
 
         private void ExecuteNonQueryCommand()
@@ -173,6 +189,12 @@ namespace LiteDBManager.Controls
                     return;
                 }
 
+                // Ignore new rows that are being cancelled
+                if (dgvResults.Rows[e.RowIndex].Cells["_id"].Value == null)
+                {
+                    return;
+                }
+
                 // Ignore existing rows
                 if (dgvResults.Rows[e.RowIndex].Cells["_id"].Value.ToString() != "")
                 {
@@ -207,6 +229,8 @@ namespace LiteDBManager.Controls
 
                 // Run insert command
                 _commandExecutor.ExecuteNonQuery(insertCommand.ToString());
+
+                _repositionToEndOfGrid = true;
 
                 // Re-run query command - needs to use BeginInvoke call to avoid reentrant errors
                 BeginInvoke(new MethodInvoker(PopulateGridFromSelectQuery));
