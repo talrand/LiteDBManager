@@ -87,6 +87,7 @@ namespace LiteDBManager
             tabQueries.TabPages.Clear();
         }
 
+        #region PopulatingDatabaseExplorer
         private void PopulateDatabaseExplorer()
         {
             // Remove previous tables
@@ -143,20 +144,9 @@ namespace LiteDBManager
                 treeTables.Nodes[0].Nodes.Add(new TreeNode() { Text = tableName, Tag = DatabaseExplorerNodeTags.UserTable, ImageIndex = 2, SelectedImageIndex = 2 });
             }
         }
+        #endregion
 
         private void mnuDisconnect_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                Disconnect();
-            }
-            catch (Exception ex)
-            {
-                new frmSystemError() { Exception = ex }.ShowDialog();
-            }
-        }
-
-        private void mnuDatabaseDisconnect_Click(object sender, EventArgs e)
         {
             try
             {
@@ -224,6 +214,30 @@ namespace LiteDBManager
             tabQueries.SelectedTab = queryTab;
         }
 
+        #region QueriesContextMenu
+        private void mnuQueries_DropDownOpening(object sender, EventArgs e)
+        {
+            bool enabled = false;
+
+            try
+            {
+                // Only enable query pane menu items if there are any open tabs 
+                if (tabQueries.TabPages.Count > 0)
+                {
+                    enabled = true;
+                }
+
+                mnuCloseCurrentQuery.Enabled = enabled;
+                mnuCloseAllButCurrentQuery.Enabled = enabled;
+                mnuCloseAllQueries.Enabled = enabled;
+
+            }
+            catch (Exception ex)
+            {
+                new frmSystemError() { Exception = ex }.ShowDialog();
+            }
+        }
+
         private void mnuCloseCurrentQuery_Click(object sender, EventArgs e)
         {
             try
@@ -265,29 +279,8 @@ namespace LiteDBManager
                 new frmSystemError() { Exception = ex }.ShowDialog();
             }
         }
+        #endregion
 
-        private void mnuQueries_DropDownOpening(object sender, EventArgs e)
-        {
-            bool enabled = false;
-
-            try
-            {
-                // Only enable query pane menu items if there are any open tabs 
-                if (tabQueries.TabPages.Count > 0)
-                {
-                    enabled = true;
-                }
-
-                mnuCloseCurrentQuery.Enabled = enabled;
-                mnuCloseAllButCurrentQuery.Enabled = enabled;
-                mnuCloseAllQueries.Enabled = enabled;
-
-            }
-            catch (Exception ex)
-            {
-                new frmSystemError() { Exception = ex }.ShowDialog();
-            }
-        }
 
         private void tabQueries_MouseClick(object sender, MouseEventArgs e)
         {
@@ -313,6 +306,7 @@ namespace LiteDBManager
             }
         }
 
+        #region DatabaseExplorerContextMenu
         private void treeTables_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             try
@@ -329,6 +323,18 @@ namespace LiteDBManager
                     mnuDatabaseTables.Show(Cursor.Position);
                 }
 
+            }
+            catch (Exception ex)
+            {
+                new frmSystemError() { Exception = ex }.ShowDialog();
+            }
+        }
+
+        private void mnuTableNewQuery_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                CreateNewQueryPane($"SELECT $ FROM { treeTables.SelectedNode.Text }");
             }
             catch (Exception ex)
             {
@@ -370,6 +376,20 @@ namespace LiteDBManager
                 new frmSystemError() { Exception = ex }.ShowDialog();
             }
         }
+        #endregion
+
+        #region DatabaseContextMenu
+        private void mnuDatabaseDisconnect_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Disconnect();
+            }
+            catch (Exception ex)
+            {
+                new frmSystemError() { Exception = ex }.ShowDialog();
+            }
+        }
 
         private void mnuDatabaseRebuild_Click(object sender, EventArgs e)
         {
@@ -386,5 +406,6 @@ namespace LiteDBManager
                 new frmSystemError() { Exception = ex }.ShowDialog();
             }
         }
+        #endregion
     }
 }
