@@ -39,10 +39,13 @@ namespace LiteDBManager.Classes.Database
 
         public static void CloseDatabase()
         {
-            _database?.Dispose();
-            _database = null;
-            _databaseName = "";
-            _databaseFileName = "";
+            if (_database != null)
+            {
+                _database.Dispose();
+                _database = null;
+                _databaseName = "";
+                _databaseFileName = "";
+            }
         }
 
         public static string FormatFieldValue(object value)
