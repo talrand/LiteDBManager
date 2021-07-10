@@ -23,7 +23,13 @@ namespace LiteDBManager.Classes.Database
                 setClause = setClause.Join(", ", $"{field.Key} = {FormatFieldValue(field.Value)}");
             }
 
-            return $"UPDATE {_tableName} SET {setClause} WHERE {_whereClause}";
+            // Prepend WHERE to passed where clause. This avoids errors where no where clause has been passed
+            if (!String.IsNullOrEmpty(_whereClause))
+            {
+                _whereClause = $" WHERE {_whereClause}";
+            }
+
+            return $"UPDATE {_tableName} SET {setClause} {_whereClause}";
         }
     }
 }
