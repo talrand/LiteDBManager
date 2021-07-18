@@ -35,7 +35,7 @@ namespace LiteDBManager.Forms
             cboFieldType.Items.Add(TableFieldTypes.Integer.Name);
             cboFieldType.Items.Add(TableFieldTypes.Decimal.Name);
             cboFieldType.Items.Add(TableFieldTypes.Boolean.Name);
-            //cboFieldType.Items.Add(TableFieldTypes.Date.Name);
+            cboFieldType.Items.Add(TableFieldTypes.Date.Name);
             cboFieldType.SelectedIndex = 0;
         }
 

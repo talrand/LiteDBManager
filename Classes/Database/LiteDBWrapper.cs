@@ -58,10 +58,15 @@ namespace LiteDBManager.Classes.Database
                 return "''";
             }
 
-            // For strings and dates wrap value in quotes
-            if (valueType.Equals(typeof(string)) || valueType.Equals(typeof(DateTime)))
+            // Format specific data types
+            if (valueType.Equals(typeof(string)))
             {
                 return $"'{value}'";
+            }
+
+            if (valueType.Equals(typeof(DateTime)))
+            {
+                return $"{{\"$date\": \"{(DateTime)value:yyyy-MM-ddTHH:mm:ssZ}\"}}";
             }
 
             if (valueType.Equals(typeof(Decimal)))
