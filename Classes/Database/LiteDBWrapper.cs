@@ -64,6 +64,11 @@ namespace LiteDBManager.Classes.Database
                 return $"'{value}'";
             }
 
+            if (valueType.Equals(typeof(Decimal)))
+            {
+                return String.Format("0.00", value);
+            }
+
             return value.ToString();
         }
 

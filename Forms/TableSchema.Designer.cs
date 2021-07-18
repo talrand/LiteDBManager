@@ -32,11 +32,14 @@ namespace LiteDBManager.Forms
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmTableSchema));
             this.dgvSchema = new System.Windows.Forms.DataGridView();
             this.btnClose = new System.Windows.Forms.Button();
+            this.butAddField = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSchema)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvSchema
             // 
+            this.dgvSchema.AllowUserToAddRows = false;
+            this.dgvSchema.AllowUserToDeleteRows = false;
             this.dgvSchema.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -53,16 +56,28 @@ namespace LiteDBManager.Forms
             this.btnClose.Location = new System.Drawing.Point(299, 449);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
-            this.btnClose.TabIndex = 1;
+            this.btnClose.TabIndex = 2;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
+            // butAddField
+            // 
+            this.butAddField.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.butAddField.Location = new System.Drawing.Point(218, 448);
+            this.butAddField.Name = "butAddField";
+            this.butAddField.Size = new System.Drawing.Size(75, 23);
+            this.butAddField.TabIndex = 1;
+            this.butAddField.Text = "Add Field";
+            this.butAddField.UseVisualStyleBackColor = true;
+            this.butAddField.Click += new System.EventHandler(this.butAddField_Click);
             // 
             // frmTableSchema
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(386, 479);
+            this.Controls.Add(this.butAddField);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.dgvSchema);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -83,5 +98,6 @@ namespace LiteDBManager.Forms
 
         private System.Windows.Forms.DataGridView dgvSchema;
         private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Button butAddField;
     }
 }

@@ -88,6 +88,7 @@
     <Compile Include="Classes\Exporters\IDataExporter.cs" />
     <Compile Include="Classes\Exporters\JsonDataExporter.cs" />
     <Compile Include="Classes\Exporters\XmlDataExporter.cs" />
+    <Compile Include="Classes\Database\TableFieldTypes.cs" />
     <Compile Include="Forms\Controls\QueryPane.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -105,6 +106,12 @@
     </Compile>
     <Compile Include="Forms\Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NewTableField.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NewTableField.Designer.cs">
+      <DependentUpon>NewTableField.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\SystemError.cs">
       <SubType>Form</SubType>
@@ -128,6 +135,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NewTableField.resx">
+      <DependentUpon>NewTableField.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SystemError.resx">
       <DependentUpon>SystemError.cs</DependentUpon>

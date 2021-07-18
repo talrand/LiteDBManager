@@ -29,11 +29,35 @@ namespace LiteDBManager.Forms
 
         private void frmTableSchema_Shown(object sender, EventArgs e)
         {
-            TableReader tableReader = new TableReader();
+            try
+            {
+                PopulateGrid();
+            }
+            catch (Exception ex)
+            {
+                new frmSystemError { Exception = ex }.ShowDialog();
+            }
+        }
+
+        private void PopulateGrid()
+        {
+            var tableReader = new TableReader();
+            dgvSchema.DataSource = tableReader.ReadSchema(_tableName);
+        }
+
+        private void butAddField_Click(object sender, EventArgs e)
+        {
+            var newTableField = new frmNewTableField();
 
             try
             {
-                dgvSchema.DataSource = tableReader.ReadSchema(_tableName);
+                newTableField.TableName = _tableName;
+                newTableField.ShowDialog();
+
+                if (newTableField.Saved)
+                {
+                    PopulateGrid();
+                }
             }
             catch (Exception ex)
             {
