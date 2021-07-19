@@ -32,6 +32,9 @@ namespace LiteDBManager.Forms
             try
             {
                 PopulateGrid();
+
+                // Only show add button if database isn't in read only mode
+                butAddField.Visible = !LiteDBWrapper.DatabaseReadOnly;
             }
             catch (Exception ex)
             {
