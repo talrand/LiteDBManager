@@ -58,7 +58,7 @@ namespace LiteDBManager.Classes.Database
             // Format specific data types
             if (valueType.Equals(typeof(string)))
             {
-                return $"'{value}'";
+                return $"'{value.ToString().Replace("'", @"\'")}'";
             }
 
             if (valueType.Equals(typeof(DateTime)))
