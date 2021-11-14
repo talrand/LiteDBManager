@@ -101,15 +101,12 @@ namespace LiteDBManager.Forms
 
         private void InsertRowsFromClipboard()
         {
-            /* Retrieve current data from grid and reset the datasource. 
-            * If we don't do this blank rows are added to the grid */
-            DataTable dataTable = (DataTable)dgvImport.DataSource;
-            dgvImport.DataSource = null;
-            dgvImport.DataSource = _importer.ReadDataFromClipboard(dataTable);
+            InsertRowsFromClipboard((DataTable)dgvImport.DataSource);
         }
 
         private void InsertRowsFromClipboard(DataTable dataTable)
         {
+            // Reset the grid's datasource, otherwise blank rows are added to the grid
             dgvImport.DataSource = null;
             dgvImport.DataSource = _importer.ReadDataFromClipboard(dataTable);
         }
