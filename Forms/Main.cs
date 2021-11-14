@@ -45,7 +45,7 @@ namespace LiteDBManager
             try
             {
                 // Dispose of LiteDatabase object
-                CloseDatabase();
+                Disconnect();
             }
             catch (Exception ex)
             {
