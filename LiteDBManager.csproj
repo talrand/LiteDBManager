@@ -56,6 +56,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Presentation" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -90,6 +91,7 @@
     <Compile Include="Classes\Exporters\JsonDataExporter.cs" />
     <Compile Include="Classes\Exporters\XmlDataExporter.cs" />
     <Compile Include="Classes\Database\TableFieldTypes.cs" />
+    <Compile Include="Classes\Globals.cs" />
     <Compile Include="Forms\Controls\QueryPane.cs">
       <SubType>UserControl</SubType>
     </Compile>

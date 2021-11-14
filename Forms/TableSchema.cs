@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using LiteDBManager.Classes.Database;
+using static LiteDBManager.Classes.Globals; 
 
 namespace LiteDBManager.Forms
 {
@@ -23,7 +24,7 @@ namespace LiteDBManager.Forms
             }
             catch (Exception ex)
             {
-                new frmSystemError {Exception = ex}.ShowDialog();
+                DisplayError(ex);
             }
         }
 
@@ -38,7 +39,7 @@ namespace LiteDBManager.Forms
             }
             catch (Exception ex)
             {
-                new frmSystemError { Exception = ex }.ShowDialog();
+                DisplayError(ex);
             }
         }
 
@@ -64,7 +65,7 @@ namespace LiteDBManager.Forms
             }
             catch (Exception ex)
             {
-                new frmSystemError { Exception = ex }.ShowDialog();
+                DisplayError(ex);
             }
         }
 
@@ -76,7 +77,7 @@ namespace LiteDBManager.Forms
             }
             catch (Exception ex)
             {
-                new frmSystemError { Exception = ex }.ShowDialog();
+                DisplayError(ex);
             }
         }
     }

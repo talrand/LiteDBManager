@@ -34,7 +34,7 @@ namespace LiteDBManager.Forms
         {
             try
             {
-                this.Close();
+                Close();
             }
             catch(Exception ex)
             {

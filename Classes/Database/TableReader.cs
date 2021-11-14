@@ -41,7 +41,7 @@ namespace LiteDBManager.Classes.Database
             // Add rows to return table
             foreach (var key in bsonDocument.Keys)
             {
-                dataTable.Rows.Add(key, bsonDocument[key].Type.ToString());
+                dataTable.Rows.Add(key, bsonDocument[key].Type.ToSystemType());
                 dataTable.AcceptChanges();
             }
 

@@ -9,6 +9,7 @@ using System.IO;
 using static LiteDBManager.Classes.Database.LiteDBWrapper;
 using static LiteDBManager.Classes.DataGridViewExtensions;
 using LiteDBManager.Classes.Exporters;
+using static LiteDBManager.Classes.Globals;
 
 namespace LiteDBManager.Controls
 {
@@ -29,7 +30,7 @@ namespace LiteDBManager.Controls
             }
             catch (Exception ex)
             {
-                new frmSystemError() { Exception = ex }.ShowDialog();
+                DisplayError(ex);
             }
         }
 
@@ -53,28 +54,37 @@ namespace LiteDBManager.Controls
                     return;
                 }
 
-                // Populate datagrid from select query
-                if (txtQuery.Text.Length >= 6)
+                if (IsSelectQuery())
                 {
-                    if (txtQuery.Text.Substring(0, 6).Equals("SELECT", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        GetCurrentTableNameFromSelectQuery();
-                        PopulateGridFromSelectQuery();
-
-                        panQueryResults.Visible = true;
-                        txtNonQueryResult.Visible = false;
-
-                        return;
-                    }
+                    // Populate datagrid from select query
+                    ExecuteSelectQuery();
                 }
-
-                // Run non-query command
-                ExecuteNonQueryCommand();
+                else
+                {
+                    // Run non-query command
+                    ExecuteNonQueryCommand();
+                }
             }
             catch (Exception ex)
             {
-                new frmSystemError() { Exception = ex }.ShowDialog();
+                DisplayError(ex);
             }
+        }
+
+        private bool IsSelectQuery()
+        {
+            if (txtQuery.Text.Length < 6) return false;
+
+            return txtQuery.Text.Substring(0, 6).Equals("SELECT", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private void ExecuteSelectQuery()
+        {
+            GetCurrentTableNameFromSelectQuery();
+            PopulateGridFromSelectQuery();
+
+            panQueryResults.Visible = true;
+            txtNonQueryResult.Visible = false;
         }
 
         private void GetCurrentTableNameFromSelectQuery()
@@ -179,39 +189,21 @@ namespace LiteDBManager.Controls
             try
             {
                 // Grid is readonly
-                if (dgvResults.ReadOnly)
-                {
-                    return;
-                }
+                if (dgvResults.ReadOnly) return;
 
-                if (!dgvResults.Columns.Contains("_id"))
-                {
-                    return;
-                }
+                if (!dgvResults.Columns.Contains("_id")) return;
 
                 // Ignore new rows that are being cancelled
-                if (dgvResults.Rows[e.RowIndex].Cells["_id"].Value == null)
-                {
-                    return;
-                }
+                if (dgvResults.Rows[e.RowIndex].Cells["_id"].Value == null) return;
 
                 // Ignore existing rows
-                if (dgvResults.Rows[e.RowIndex].Cells["_id"].Value.ToString() != "")
-                {
-                    return;
-                }
+                if (dgvResults.Rows[e.RowIndex].Cells["_id"].Value.ToString() != "") return;
 
                 // Don't insert blank rows
-                if (IsGridRowBlank(dgvResults.Rows[e.RowIndex]) || HasGridRowOnlyDefaultValues(dgvResults.Rows[e.RowIndex]))
-                {
-                    return;
-                }
+                if (IsGridRowBlank(dgvResults.Rows[e.RowIndex]) || HasGridRowOnlyDefaultValues(dgvResults.Rows[e.RowIndex])) return;
 
                 // Exit if there's currently errors on the rows
-                if (dgvResults.Rows[e.RowIndex].ErrorText != "")
-                {
-                    return;
-                }
+                if (dgvResults.Rows[e.RowIndex].ErrorText != "") return;
 
                 // Build insert command
                 insertCommand.SetTableName(_currentTable);
@@ -237,7 +229,7 @@ namespace LiteDBManager.Controls
             }
             catch (Exception ex)
             {
-                new frmSystemError() { Exception = ex }.ShowDialog();
+                DisplayError(ex);
             }
         }
 
@@ -290,7 +282,7 @@ namespace LiteDBManager.Controls
             }
             catch (Exception ex)
             {
-                new frmSystemError() { Exception = ex }.ShowDialog();
+                DisplayError(ex);
             }
         }
 
@@ -303,10 +295,7 @@ namespace LiteDBManager.Controls
 
             try
             {
-                if (dgvResults.ReadOnly)
-                {
-                    return;
-                }
+                if (dgvResults.ReadOnly) return;
 
                 // Get values from grid
                 cell = dgvResults.Rows[e.RowIndex].Cells[e.ColumnIndex];
@@ -314,10 +303,7 @@ namespace LiteDBManager.Controls
                 id = dgvResults.Rows[e.RowIndex].Cells["_id"].Value?.ToString();
 
                 // No id means we're adding a new row
-                if (String.IsNullOrEmpty(id))
-                {
-                    return;
-                }
+                if (String.IsNullOrEmpty(id)) return;
 
                 // Perform update 
                 updateCommand.SetTableName(_currentTable);
@@ -328,7 +314,7 @@ namespace LiteDBManager.Controls
             }
             catch (Exception ex)
             {
-                new frmSystemError() { Exception = ex }.ShowDialog();
+                DisplayError(ex);
             }
         }
 
@@ -349,7 +335,7 @@ namespace LiteDBManager.Controls
             }
             catch (Exception ex)
             {
-                new frmSystemError() { Exception = ex }.ShowDialog();
+                DisplayError(ex);
             }
         }
 
@@ -362,7 +348,7 @@ namespace LiteDBManager.Controls
             }
             catch (Exception ex)
             {
-                new frmSystemError() { Exception = ex }.ShowDialog();
+                DisplayError(ex);
             }
         }
 
@@ -375,7 +361,7 @@ namespace LiteDBManager.Controls
             }
             catch (Exception ex)
             {
-                new frmSystemError() { Exception = ex }.ShowDialog();
+                DisplayError(ex);
             }
         }
 
@@ -390,7 +376,7 @@ namespace LiteDBManager.Controls
             }
             catch (Exception ex)
             {
-                new frmSystemError() { Exception = ex }.ShowDialog();
+                DisplayError(ex);
             }
         }
 
@@ -410,7 +396,7 @@ namespace LiteDBManager.Controls
             }
             catch (Exception ex)
             {
-                new frmSystemError() { Exception = ex }.ShowDialog();
+                DisplayError(ex);
             }
         }
 
@@ -420,18 +406,12 @@ namespace LiteDBManager.Controls
 
             try
             {
-                if (dgvResults.CurrentRow == null)
-                {
-                    return;
-                }
+                if (dgvResults.CurrentRow == null) return;
 
                 id = dgvResults.CurrentRow.Cells["_id"].Value.ToString();
 
                 // Don't attempt to delete 'New Row'
-                if (id == "")
-                {
-                    return;
-                }
+                if (id == "") return;
 
                 if (MessageBox.Show("Are you sure you want to delete this row?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
@@ -442,7 +422,7 @@ namespace LiteDBManager.Controls
             }
             catch (Exception ex)
             {
-                new frmSystemError() { Exception = ex }.ShowDialog();
+                DisplayError(ex);
             }
         }
 
@@ -457,10 +437,7 @@ namespace LiteDBManager.Controls
                 saveFileDialog.Filter = "CSV|*.csv|json|*.json|XML Document|*.xml";
                 saveFileDialog.ShowDialog();
 
-                if (saveFileDialog.FileName == "")
-                {
-                    return;
-                }
+                if (String.IsNullOrEmpty(saveFileDialog.FileName)) return;
 
                 // Delete existing file
                 if (File.Exists(saveFileDialog.FileName))
@@ -476,8 +453,44 @@ namespace LiteDBManager.Controls
             }
             catch (Exception ex)
             {
-                new frmSystemError() { Exception = ex }.ShowDialog();
+                DisplayError(ex);
             }
+        }
+
+        private void dgvResults_KeyUp(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                // Don't import rows if user isn't running a SELECT query
+                if (dgvResults.DataSource == null || IsSelectQuery() == false) return;
+
+                if (IsPasteKeys(e))
+                {
+                    DisplayImportData(true);
+                }
+            }
+            catch (Exception ex)
+            {
+                DisplayError(ex);
+            }
+        }
+
+        private void DisplayImportData(bool loadDataFromClipboard = false)
+        {
+            // Show Import Data form
+            frmImportData importData = new frmImportData();
+            importData.TableName = _currentTable;
+            importData.AutoLoadDataFromClipboard = loadDataFromClipboard;
+            importData.ShowDialog();
+
+            if (importData.Imported == false) return;
+
+            // Refresh grid if data was imported
+            if (IsSelectQuery())
+            {
+                ExecuteSelectQuery();
+            }
+
         }
     }
 }

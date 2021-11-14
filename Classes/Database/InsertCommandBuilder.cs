@@ -39,9 +39,15 @@ namespace LiteDBManager.Classes.Database
                         continue;
                     }
 
-                    if (fieldType.Equals(typeof(decimal))||fieldType.Equals(typeof(double)))
+                    if (fieldType.Equals(typeof(decimal)))
                     {
                         jsonWriter.WriteNumberElement(field.Key, (decimal)field.Value);
+                        continue;
+                    }
+
+                    if (fieldType.Equals(typeof(double)))
+                    {
+                        jsonWriter.WriteNumberElement(field.Key, Convert.ToDecimal(field.Value));
                         continue;
                     }
 

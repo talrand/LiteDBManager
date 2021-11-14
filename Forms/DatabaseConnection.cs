@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using System.IO;
 using static LiteDBManager.Classes.Database.LiteDBWrapper;
 using LiteDBManager.Classes.Database;
+using static LiteDBManager.Classes.Globals;
 
 namespace LiteDBManager.Forms
 {
@@ -26,7 +27,7 @@ namespace LiteDBManager.Forms
             }
             catch (Exception ex)
             {
-                new frmSystemError() { Exception = ex }.ShowDialog();
+                DisplayError(ex);
             }
         }
 
@@ -65,7 +66,7 @@ namespace LiteDBManager.Forms
             }
             catch (Exception ex)
             {
-                new frmSystemError() { Exception = ex }.ShowDialog();
+                DisplayError(ex);
             }
         }
 
@@ -79,7 +80,7 @@ namespace LiteDBManager.Forms
                 databaseInfo = databaseConnector.Connect(cboFileName.Text, txtPassword.Text, cboMethod.SelectedItem.ToString());
                 SetDatabaseInfo(databaseInfo);
                 _connected = true;
-                this.Close();
+                Close();
             }
             catch (FileLoadException fileEx)
             {
@@ -87,7 +88,7 @@ namespace LiteDBManager.Forms
             }
             catch (Exception ex)
             {
-                new frmSystemError() { Exception = ex }.ShowDialog();
+                DisplayError(ex);
             }
         }
 
@@ -95,11 +96,11 @@ namespace LiteDBManager.Forms
         {
             try
             {
-                this.Close();
+                Close();
             }
             catch (Exception ex)
             {
-                new frmSystemError() { Exception = ex }.ShowDialog();
+                DisplayError(ex);
             }
         }
     }

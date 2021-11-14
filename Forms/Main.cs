@@ -5,6 +5,7 @@ using LiteDBManager.Classes.Database;
 using LiteDBManager.Forms;
 using LiteDBManager.Controls;
 using static LiteDBManager.Classes.Database.LiteDBWrapper;
+using static LiteDBManager.Classes.Globals;
 
 namespace LiteDBManager
 {
@@ -35,7 +36,7 @@ namespace LiteDBManager
             }
             catch (Exception ex)
             {
-                new frmSystemError() { Exception = ex }.ShowDialog();
+                DisplayError(ex);
             }
         }
 
@@ -48,7 +49,7 @@ namespace LiteDBManager
             }
             catch (Exception ex)
             {
-                new frmSystemError() { Exception = ex }.ShowDialog();
+                DisplayError(ex);
             }
         }
 
@@ -77,7 +78,7 @@ namespace LiteDBManager
             }
             catch (Exception ex)
             {
-                new frmSystemError() { Exception = ex }.ShowDialog();
+                DisplayError(ex);
             }
         }
 
@@ -154,7 +155,7 @@ namespace LiteDBManager
             }
             catch (Exception ex)
             {
-                new frmSystemError() { Exception = ex }.ShowDialog();
+                DisplayError(ex);
             }
         }
 
@@ -193,7 +194,7 @@ namespace LiteDBManager
             }
             catch (Exception ex)
             {
-                new frmSystemError() { Exception = ex }.ShowDialog();
+                DisplayError(ex);
             }
         }
 
@@ -234,7 +235,7 @@ namespace LiteDBManager
             }
             catch (Exception ex)
             {
-                new frmSystemError() { Exception = ex }.ShowDialog();
+                DisplayError(ex);
             }
         }
 
@@ -246,7 +247,7 @@ namespace LiteDBManager
             }
             catch (Exception ex)
             {
-                new frmSystemError() { Exception = ex }.ShowDialog();
+                DisplayError(ex);
             }
         }
 
@@ -264,7 +265,7 @@ namespace LiteDBManager
             }
             catch (Exception ex)
             {
-                new frmSystemError() { Exception = ex }.ShowDialog();
+                DisplayError(ex);
             }
         }
 
@@ -276,7 +277,7 @@ namespace LiteDBManager
             }
             catch (Exception ex)
             {
-                new frmSystemError() { Exception = ex }.ShowDialog();
+                DisplayError(ex);
             }
         }
         #endregion
@@ -302,7 +303,7 @@ namespace LiteDBManager
             }
             catch (Exception ex)
             {
-                new frmSystemError() { Exception = ex }.ShowDialog();
+                DisplayError(ex);
             }
         }
 
@@ -326,7 +327,7 @@ namespace LiteDBManager
             }
             catch (Exception ex)
             {
-                new frmSystemError() { Exception = ex }.ShowDialog();
+                DisplayError(ex);
             }
         }
 
@@ -338,7 +339,7 @@ namespace LiteDBManager
             }
             catch (Exception ex)
             {
-                new frmSystemError() { Exception = ex }.ShowDialog();
+                DisplayError(ex);
             }
         }
 
@@ -352,7 +353,7 @@ namespace LiteDBManager
             }
             catch (Exception ex)
             {
-                new frmSystemError() { Exception = ex }.ShowDialog();
+                DisplayError(ex);
             }
         }
 
@@ -373,7 +374,23 @@ namespace LiteDBManager
             }
             catch (Exception ex)
             {
-                new frmSystemError() { Exception = ex }.ShowDialog();
+                DisplayError(ex);
+            }
+        }
+
+        private void mnuImportData_Click(object sender, EventArgs e)
+        {
+            frmImportData importData = new frmImportData();
+
+            try
+            {
+                // Show import data form
+                importData.TableName = treeTables.SelectedNode.Text;
+                importData.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                DisplayError(ex);
             }
         }
         #endregion
@@ -387,7 +404,7 @@ namespace LiteDBManager
             }
             catch (Exception ex)
             {
-                new frmSystemError() { Exception = ex }.ShowDialog();
+                DisplayError(ex);
             }
         }
 
@@ -403,7 +420,7 @@ namespace LiteDBManager
             }
             catch (Exception ex)
             {
-                new frmSystemError() { Exception = ex }.ShowDialog();
+                DisplayError(ex);
             }
         }
         #endregion

@@ -24,11 +24,11 @@ namespace LiteDBManager.Classes.Database
         private static string _databaseFileName = "";
         private static bool _databaseReadOnly = false;
 
-        public static string DatabaseName { get { return _databaseName; } }
-        public static string DatabaseFileName { get { return _databaseFileName; } }
-        public static bool DatabaseReadOnly { get { return _databaseReadOnly; } }
-        internal static LiteDatabase Database { get { return _database; } }
-     
+        public static string DatabaseName { get => _databaseName; }
+        public static string DatabaseFileName { get => _databaseFileName; }
+        public static bool DatabaseReadOnly { get => _databaseReadOnly; }
+        internal static LiteDatabase Database { get => _database; }
+
         public static void SetDatabaseInfo(Database.DatabaseInfo databaseInfo)
         {
             _database = databaseInfo.Database;
@@ -39,13 +39,10 @@ namespace LiteDBManager.Classes.Database
 
         public static void CloseDatabase()
         {
-            if (_database != null)
-            {
-                _database.Dispose();
-                _database = null;
-                _databaseName = "";
-                _databaseFileName = "";
-            }
+            _database?.Dispose();
+            _database = null;
+            _databaseName = "";
+            _databaseFileName = "";
         }
 
         public static string FormatFieldValue(object value)
