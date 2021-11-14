@@ -492,5 +492,35 @@ namespace LiteDBManager.Controls
             }
 
         }
+
+        private void dgvResults_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            string id;
+
+            try
+            {
+                // No need to update database if id not present in grid
+                if (dgvResults.Columns.Contains("_id") == false) return;
+
+                // Get id of current row
+                id = e.Row.Cells["_id"].Value.ToString();
+
+                if (String.IsNullOrEmpty(id)) return;
+
+                // Ask user for confirmation
+                if (MessageBox.Show("Are you sure you want to delete this row?", "", MessageBoxButtons.YesNo) == DialogResult.No)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+
+                // Delete row and repopulate grid
+                _commandExecutor.ExecuteNonQuery($"DELETE {_currentTable} WHERE _id = {FormatIdFieldForWhereClause(id)}");
+            }
+            catch (Exception ex)
+            {
+                DisplayError(ex);
+            }
+        }
     }
 }

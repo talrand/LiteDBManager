@@ -101,6 +101,7 @@ namespace LiteDBManager.Controls
             this.dgvResults.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvResults_DataError);
             this.dgvResults.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvResults_DefaultValuesNeeded);
             this.dgvResults.RowLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvResults_RowLeave);
+            this.dgvResults.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvResults_UserDeletingRow);
             this.dgvResults.KeyUp += new System.Windows.Forms.KeyEventHandler(this.dgvResults_KeyUp);
             this.dgvResults.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgvResults_MouseClick);
             // 
