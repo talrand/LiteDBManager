@@ -3,6 +3,7 @@ using System.Data;
 using System.Windows.Forms;
 using LiteDBManager.Classes.DataImport;
 using static LiteDBManager.Classes.Globals;
+using System.IO;
 
 namespace LiteDBManager.Forms
 {
@@ -36,8 +37,18 @@ namespace LiteDBManager.Forms
 
                 if (_autoLoadDataFromClipboard)
                 {
-                    // Insert data already on clipboard
-                    InsertRowsFromClipboard(dataTable);
+                    try
+                    {
+                        // Insert data already on clipboard
+                        InsertRowsFromClipboard(dataTable);
+                    }
+                    catch (InvalidDataException invalidDataEx)
+                    {
+                        MessageBox.Show(invalidDataEx.Message);
+
+                        // Failed to import data from clipboard, use table schema instead
+                        dgvImport.DataSource = dataTable;
+                    }
                 }
                 else
                 {
@@ -58,6 +69,10 @@ namespace LiteDBManager.Forms
             {
                 InsertRowsFromClipboard();
             }
+            catch (InvalidDataException invalidDataEx)
+            {
+                MessageBox.Show(invalidDataEx.Message);
+            }
             catch (Exception ex)
             {
                 DisplayError(ex);
@@ -73,6 +88,10 @@ namespace LiteDBManager.Forms
                 {
                     InsertRowsFromClipboard();
                 }
+            }
+            catch (InvalidDataException invalidDataEx)
+            {
+                MessageBox.Show(invalidDataEx.Message);
             }
             catch (Exception ex)
             {

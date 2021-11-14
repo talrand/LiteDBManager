@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Data;
 using LiteDBManager.Classes.Database;
+using System.IO;
 
 namespace LiteDBManager.Classes.DataImport
 {
@@ -33,7 +34,7 @@ namespace LiteDBManager.Classes.DataImport
             DataRow dataRow;
 
             // Ensure data has tabs, as this is what we'll use to separate data
-            if (textToImport.Contains('\t') == false) throw new Exception("Copied data is in an invalid format");
+            if (textToImport.Contains('\t') == false) throw new InvalidDataException("Copied data must contain tabs");
 
             rows = textToImport.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -43,7 +44,7 @@ namespace LiteDBManager.Classes.DataImport
                 string[] fields = row.TrimStart().Split('\t');
 
                 // Sanity check the data before continuing
-                if (fields.Length > dataTable.Columns.Count) throw new Exception("Copied data has more columns than current table");
+                if (fields.Length > dataTable.Columns.Count) throw new InvalidDataException("Copied data has more columns than current table");
 
                 // Move data to row and add to table
                 dataRow = dataTable.NewRow();
