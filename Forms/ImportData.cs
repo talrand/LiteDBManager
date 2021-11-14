@@ -35,27 +35,24 @@ namespace LiteDBManager.Forms
 
                 dataTable = _importer.CreateImportDataTable(_tableName);
 
+                // Insert data already on clipboard
                 if (_autoLoadDataFromClipboard)
                 {
                     try
                     {
-                        // Insert data already on clipboard
                         InsertRowsFromClipboard(dataTable);
+                        return;
                     }
                     catch (InvalidDataException invalidDataEx)
                     {
-                        MessageBox.Show(invalidDataEx.Message);
-
-                        // Failed to import data from clipboard, use table schema instead
-                        dgvImport.DataSource = dataTable;
+                        MessageBox.Show(invalidDataEx.Message); ;
                     }
                 }
-                else
-                {
-                    /* Initialise grid with schema for passed table
-                    * This will allow users to manually input data if they wish */
-                    dgvImport.DataSource = dataTable;
-                }
+
+                /* No data passed. Initialise grid with schema for passed table
+                * This will allow users to manually input data if they wish */
+                dgvImport.DataSource = dataTable;
+                SetIdColumnAsReadOnly();
             }
             catch (Exception ex)
             {
@@ -109,6 +106,15 @@ namespace LiteDBManager.Forms
             // Reset the grid's datasource, otherwise blank rows are added to the grid
             dgvImport.DataSource = null;
             dgvImport.DataSource = _importer.ReadDataFromClipboard(dataTable);
+            SetIdColumnAsReadOnly();
+        }
+
+        private void SetIdColumnAsReadOnly()
+        {
+            if (dgvImport.Columns.Contains("_id"))
+            {
+                dgvImport.Columns["_id"].ReadOnly = true;
+            }
         }
 
         private void butImport_Click(object sender, EventArgs e)
