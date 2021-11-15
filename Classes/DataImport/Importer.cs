@@ -69,6 +69,28 @@ namespace LiteDBManager.Classes.DataImport
             return dataTable;
         }
 
+        public DataTable ReadDataFromCsvFile(string fileName, bool firstRowContainsHeaders, DataTable dataTable)
+        {
+            if (String.IsNullOrEmpty(fileName)) throw new ArgumentNullException(nameof(fileName));
+            if (dataTable == null) throw new ArgumentNullException(nameof(dataTable));
+
+            // Read data from csv file
+            CsvToDataTableConverter converter = new CsvToDataTableConverter();
+            converter.FirstRowContainsHeaders = firstRowContainsHeaders;
+            DataTable csvData = converter.Convert(fileName);
+
+            // Sanity check the data before continuing
+            if (csvData.Columns.Count > dataTable.Columns.Count) throw new InvalidDataException("Csv file has more columns than current table");
+
+            // Import each row into passed table, this will convert cell values to correct format
+            foreach (DataRow csvRow in csvData.Rows)
+            {
+                dataTable.ImportRow(csvRow);
+            }
+
+            return dataTable;
+        }
+
         public void ImportData(string tableName, DataTable dataTable)
         {
             // Don't continue if no data passed

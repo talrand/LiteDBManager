@@ -145,5 +145,31 @@ namespace LiteDBManager.Forms
                 DisplayError(ex);
             }
         }
+
+        private void mnuFile_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            bool firstRowContainsHeaders = false;
+
+            try
+            {
+                openFileDialog.Filter = "csv files|*.csv";
+                openFileDialog.ShowDialog();
+
+                // Don't continue if no file selected
+                if (String.IsNullOrEmpty(openFileDialog.FileName)) return;
+
+                if (MessageBox.Show("Does the first row contain column headers?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    firstRowContainsHeaders = true;
+                }
+
+                dgvImport.DataSource = _importer.ReadDataFromCsvFile(openFileDialog.FileName, firstRowContainsHeaders, (DataTable)dgvImport.DataSource);
+            }
+            catch (Exception ex)
+            {
+                DisplayError(ex);
+            }
+        }
     }
 }
