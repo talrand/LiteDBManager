@@ -84,6 +84,7 @@
     <Compile Include="Classes\Database\RecentFiles.cs" />
     <Compile Include="Classes\Database\TableReader.cs" />
     <Compile Include="Classes\Database\UpdateCommandBuilder.cs" />
+    <Compile Include="Classes\DataImport\CsvToDataTableConverter.cs" />
     <Compile Include="Classes\DataImport\Importer.cs" />
     <Compile Include="Classes\Exporters\CsvDataExporter.cs" />
     <Compile Include="Classes\Exporters\DataExporterFactory.cs" />
